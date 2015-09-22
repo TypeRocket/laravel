@@ -1,0 +1,25 @@
+{
+  "name": "typerocket/laravel",
+  "type": "library",
+  "description": "Makes form building and model binding a breeze.",
+  "keywords": ["typerocket", "forms", "fields"],
+  "homepage": "https://github.com/TypeRocket/laravel",
+  "license" : "BSD",
+  "authors" : [
+    {
+      "name": "Kevin Dees",
+      "homepage": "http://www.php-built.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "TypeRocket\\": "src/"
+    }
+  }
+}
