@@ -63,3 +63,20 @@ $paths = Config::getPaths();
 Assets::addToFooter('js', 'typerocket-core', $paths['urls']['js'] . '/typerocket.js');
 Assets::addToHead('js', 'typerocket-global', $paths['urls']['js'] . '/global.js');
 ```
+
+## Forms
+
+```php
+// model, action ( create || update ), id, path
+$form = new Form('catalog', 'create', $id, '/catalogs/process/' . $id);
+```
+
+```php
+<div class="typerocket-container">
+    {!! $form->open() !!}
+    {!! $form->select('Converter')->setOptions($converters) !!}
+    {!! $form->checkbox('Run')->setText('Execute and run the converter.') !!}
+    {!! $form->checkbox('Append')->setText('Append to existing table data.') !!}
+    {!! $form->close('Submit') !!}
+</div>
+```
