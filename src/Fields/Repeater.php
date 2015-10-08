@@ -53,7 +53,7 @@ class Repeater extends Field implements ScriptField
 
         // template for repeater groups
         $href          = '#remove';
-        $openContainer = '<div class="repeater-controls"><div class="collapse"></div><div class="move"></div><a href="' . $href . '" class="remove" title="remove"></a></div><div class="repeater-inputs">';
+        $openContainer = '<div class="repeater-controls"><div class="collapse glyphicon glyphicon-chevron-down"></div><div class="glyphicon glyphicon-menu-hamburger move"></div><a href="' . $href . '" class="glyphicon glyphicon-remove remove" title="remove"></a></div><div class="repeater-inputs">';
         $endContainer  = '</div>';
 
         $html .= '<div class="control-section tr-repeater">'; // start tr-repeater
@@ -69,7 +69,7 @@ class Repeater extends Field implements ScriptField
         $generator    = new Generator();
         $default_null = $generator->newInput( 'hidden', $this->getAttribute( 'name' ), null )->getString();
 
-        $html .= "<div class=\"controls\"><div class=\"tr-repeater-button-add\"><input type=\"button\" value=\"{$add_button_value}\" class=\"button add\" /></div><div class=\"button-group\"><input type=\"button\" value=\"Flip\" class=\"flip button\" /><input type=\"button\" value=\"Contract\" class=\"tr_action_collapse button\"><input type=\"button\" value=\"Clear All\" class=\"clear button\" /></div>{$help}<div>{$default_null}</div></div>";
+        $html .= "<div class=\"controls\"><div class=\"tr-repeater-button-add\"><input type=\"button\" value=\"{$add_button_value}\" class=\"btn btn-default add\" /></div><div class=\"btn-group\"><input type=\"button\" value=\"Flip\" class=\"flip btn btn-default\" /><input type=\"button\" value=\"Contract\" class=\"tr_action_collapse btn btn-default\"><input type=\"button\" value=\"Clear All\" class=\"clear btn btn-default\" /></div>{$help}<div>{$default_null}</div></div>";
 
         // replace name attr with data-name so fields are not saved
         $templateFields = str_replace( ' name="', ' data-name="', $this->getTemplateFields() );

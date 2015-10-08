@@ -47,8 +47,10 @@ class Form
         $model = ucfirst($this->resource);
         $model = "\\App\\{$model}";
 
-        if(class_exists($model)) {
+        if(class_exists($model) && $this->itemId ) {
             $this->model = call_user_func( "{$model}::find", $this->itemId );
+        } elseif(class_exists($model)) {
+            $this->model = new $model();
         }
     }
 
