@@ -68,15 +68,60 @@ Assets::addToHead('js', 'typerocket-global', $paths['urls']['js'] . '/global.js'
 
 ```php
 // model, action ( create || update ), id, path
-$form = new Form('catalog', 'create', $id, '/catalogs/process/' . $id);
+$form = new \TypeRocket\Form('Post', 'update', $id, '/posts/' . $id);
 ```
 
 ```php
 <div class="typerocket-container">
     {!! $form->open() !!}
-    {!! $form->select('Converter')->setOptions($converters) !!}
-    {!! $form->checkbox('Run')->setText('Execute and run the converter.') !!}
-    {!! $form->checkbox('Append')->setText('Append to existing table data.') !!}
+    {!! $form->text('title')->setLabel('Post Title') !!}
+    {!! $form->checkbox('publish')->setText('Published') !!}
     {!! $form->close('Submit') !!}
 </div>
+```
+
+## Request Old Input
+
+To load old input into the form set the request.
+
+```php
+class PostController extends Controller
+{
+    public function create(Request $request)
+    {
+        $form = new \TypeRocket\Form('Post', 'create', null, '/posts/');
+        $form->setRequest($request); // set request
+        return view('posts.create', ['form' => $form]);
+    }
+}
+```
+
+## Validate
+
+```php
+class PostController extends Controller
+{
+
+    public function store(Request $request)
+    {
+        $tr = $request->input('tr');
+
+        $validator = \Validator::make($tr, [
+            'title' => 'required|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect("posts/create")
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $post = new Fabric();
+        $post->title = $tr['title'];
+        $post->save();
+
+        header('Location: /posts/');
+    }
+
+}
 ```
