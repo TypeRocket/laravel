@@ -1,6 +1,8 @@
 ## TypeRocket for Laravel 5.1
 
-Beta is in progress.
+Originally for WordPress, TypeRocket makes building advanced forms and fields easy for Laravel too.
+
+See http://typerocket.com for documentation (mainly for WordPress).
 
 ### .env
 
@@ -11,38 +13,6 @@ TR_MATRIX_API_URL=/matrix_api
 TR_JS_URL=/js/tr
 TR_CSS_URL=/css/tr
 TR_DEBUG=true
-```
-
-## Matrix route.
-
-Working with matrix fields.
-
-```php
-Route::post('matrix_api/{group}/{type}', function($group, $type) {
-    (new TypeRocket\Matrix())->route($group, $type);
-});
-```
-
-### CSFR for matrix
-
-```php
-<?php
-
-namespace App\Http\Middleware;
-
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
-
-class VerifyCsrfToken extends BaseVerifier
-{
-    /**
-     * The URIs that should be excluded from CSRF verification.
-     *
-     * @var array
-     */
-    protected $except = [
-        'matrix_api/*' // added
-    ];
-}
 ```
 
 ## JS and CSS init
@@ -123,5 +93,37 @@ class PostController extends Controller
         header('Location: /posts/');
     }
 
+}
+```
+
+## Matrix route.
+
+Working with matrix fields.
+
+```php
+Route::post('matrix_api/{group}/{type}', function($group, $type) {
+    (new TypeRocket\Matrix())->route($group, $type);
+});
+```
+
+### CSFR for matrix
+
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+
+class VerifyCsrfToken extends BaseVerifier
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array
+     */
+    protected $except = [
+        'matrix_api/*' // added
+    ];
 }
 ```
