@@ -22,10 +22,23 @@ class Getter {
         if ($field instanceof Field) {
             $brackets = $field->getBrackets();
             $this->field = $field;
+            $request = $this->field->getForm()->getRequest();
         }
 
         $keys = $this->geBracketKeys( $brackets );
-        $data = $this->getBaseFieldValue( $keys[0] );
+
+        if(! empty($request) && ! empty($request->old('tr')) ) {
+            $old = $request->old('tr');
+            $data = $old[$keys[0]];
+
+            if(is_array($data)) {
+                $data = json_encode($data);
+            }
+
+        } else {
+            $data = $this->getBaseFieldValue( $keys[0] );
+        }
+
         return $this->parseValueData( $data, $keys );
     }
     /**

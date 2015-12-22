@@ -3,7 +3,8 @@ namespace TypeRocket;
 
 use \TypeRocket\Html\Generator,
     \TypeRocket\Html\Tag,
-    \TypeRocket\Fields\Field;
+    \TypeRocket\Fields\Field,
+    \Illuminate\Http\Request;
 
 class Form
 {
@@ -15,6 +16,7 @@ class Form
 
     /** @var \Illuminate\Database\Eloquent\Model $model */
     private $model = null;
+    private $request = null;
 
     /** @var \TypeRocket\Fields\Field $currentField */
     private $currentField = '';
@@ -60,6 +62,25 @@ class Form
 
     public function __set( $property, $value )
     {
+    }
+
+    /**
+     * Set Request
+     *
+     * @param Request $request
+     */
+    public function setRequest( Request $request )
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * Get Request
+     *
+     * @return null|Request
+     */
+    public function getRequest() {
+        return $this->request;
     }
 
     /**
