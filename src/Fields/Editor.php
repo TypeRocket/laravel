@@ -15,10 +15,8 @@ class Editor extends Textarea implements ScriptField
     }
 
     public function enqueueScripts() {
-//        $paths = Config::getPaths();
-//        wp_enqueue_media();
-//        wp_enqueue_script( 'typerocket-editor', $paths['urls']['assets'] . '/js/redactor.min.js', array( 'jquery' ), '1.0',
-//            true );
+        $paths = Config::getPaths();
+        \TypeRocket\Assets::addToFooter('js', 'typerocket-editor', $paths['urls']['js'] . '/redactor.min.js');
     }
 
     /**
