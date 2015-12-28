@@ -41,4 +41,37 @@ trait OptionTraits {
 
         return $this;
     }
+
+    public function setOptionsFromModelClass( $model, $key, $value )
+    {
+        $options = [];
+        $label = '';
+
+        if(class_exists($model)) {
+            $all = $model::all();
+
+            if($all) {
+                foreach($all as $item) {
+
+                    if(is_array($key)) {
+
+                        foreach($key as $str) {
+                            $label .= ' ' . $item->{$str};
+                        }
+
+                    } else {
+                        $label = $item->{$key};
+                    }
+
+                    $options[trim($label)] = $item->{$value};
+                    $label = '';
+                }
+            }
+        }
+        
+        $this->options = $options;
+
+        return $this;
+    }
+    
 }
