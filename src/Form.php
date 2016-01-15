@@ -47,7 +47,8 @@ class Form
         $this->path = $path;
 
         $model = ucfirst($this->resource);
-        $model = "\\App\\{$model}";
+        $domain = env('TR_DOMAIN', 'App');
+        $model = "\\$domain\\{$model}";
 
         if(class_exists($model) && $this->itemId ) {
             $this->model = call_user_func( "{$model}::find", $this->itemId );
