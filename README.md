@@ -13,6 +13,7 @@ TR_MATRIX_API_URL=/matrix_api
 TR_JS_URL=/js/tr
 TR_CSS_URL=/css/tr
 TR_DEBUG=true
+TR_DOMAIN=App
 ```
 
 ## JS and CSS init
