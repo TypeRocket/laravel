@@ -6,6 +6,9 @@ use \TypeRocket\Html\Generator,
 
 class Image extends Field implements ScriptField
 {
+
+    private $mediaProviderClass = null;
+
     /**
      * Run on construction
      */
@@ -16,9 +19,8 @@ class Image extends Field implements ScriptField
 
     public function enqueueScripts() {
         $paths = Config::getPaths();
-        wp_enqueue_media();
-        wp_enqueue_script( 'typerocket-media', $paths['urls']['assets'] . '/js/media.js', array( 'jquery' ), '1.0',
-            true );
+        Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
+        Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
     }
 
     /**
@@ -27,9 +29,8 @@ class Image extends Field implements ScriptField
     public function getString()
     {
         $name = $this->getNameAttributeString();
-        $this->setAttribute( 'class', 'image-picker' );
-        $value = esc_attr( $this->getValue() );
-
+        $this->setAttribute( 'class', 'photo-picker' );
+        $value = $this->getValue();
         $this->removeAttribute( 'name' );
         $generator = new Generator();
 
@@ -38,7 +39,10 @@ class Image extends Field implements ScriptField
         }
 
         if ($value != "") {
-            $image = wp_get_attachment_image( (int) $value, 'thumbnail' );
+            $img = new {$this->mediaProviderClass}();
+            $img->findById($value);
+            $src = $img->getThumbsrc();
+            $image = "<img src=\"{$src}\" />";
         } else {
             $image = '';
         }
@@ -48,15 +52,15 @@ class Image extends Field implements ScriptField
         }
 
         $html = $generator->newInput( 'hidden', $name, $value, $this->getAttributes() )->getString();
-        $html .= '<div class="button-group">';
+        $html .= '<div class="btn-group">';
         $html .= $generator->newElement( 'input', array(
             'type'  => 'button',
-            'class' => 'image-picker-button button',
+            'class' => 'image-picker-button btn btn-default',
             'value' => $this->getSetting( 'button' )
         ) )->getString();
         $html .= $generator->newElement( 'input', array(
             'type'  => 'button',
-            'class' => 'image-picker-clear button',
+            'class' => 'image-picker-clear btn btn-default',
             'value' => 'Clear'
         ) )->getString();
         $html .= '</div>';
@@ -65,6 +69,10 @@ class Image extends Field implements ScriptField
         ), $image )->getString();
 
         return $html;
+    }
+
+    public function setMediaProviderClass($class) {
+        $this->mediaProviderClass = $class;
     }
 
 }

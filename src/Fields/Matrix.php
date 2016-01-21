@@ -24,24 +24,6 @@ class Matrix extends Field implements OptionField, ScriptField {
     public function enqueueScripts() {
         $paths = Config::getPaths();
         Assets::addToFooter('js', 'matrix-core', $paths['urls']['js'] . '/matrix.js');
-        // load everything :(
-//        wp_enqueue_script( 'typerocket-booyah', $paths['urls']['assets'] . '/js/booyah.js', array( 'jquery' ),
-//            '1.0', true );
-//        wp_enqueue_script( 'jquery-ui-sortable', array( 'jquery' ), '1.0', true );
-//
-//        // date
-//        wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ), '1.0', true );
-//
-//        // images and gallery
-//        wp_enqueue_media();
-//        wp_enqueue_script( 'typerocket-media', $paths['urls']['assets'] . '/js/media.js', array( 'jquery' ), '1.0',
-//            true );
-//        wp_enqueue_script( 'typerocket-items', $paths['urls']['assets'] . '/js/items.js',
-//            array( 'jquery' ), '1.0', true );
-//
-//        // editor
-//        wp_enqueue_script( 'typerocket-editor', $paths['urls']['assets'] . '/js/redactor.min.js', array( 'jquery' ), '1.0',
-//            true );
     }
 
     /**

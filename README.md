@@ -10,6 +10,7 @@ Example settings.
 
 ```
 TR_MATRIX_API_URL=/matrix_api
+TR_FORM_PROVIDER=\TypeRocket\Form
 TR_JS_URL=/js/tr
 TR_CSS_URL=/css/tr
 TR_DEBUG=true
@@ -127,4 +128,15 @@ class VerifyCsrfToken extends BaseVerifier
         'matrix_api/*' // added
     ];
 }
+```
+
+## Matrix Assets
+
+Assets will not be loaded form fields because the view is already loaded. Include the posible assets in the controller.
+
+For example a Matrix field that uses an image field will need to include `image.js`.
+
+```php
+$paths = \TypeRocket\Config::getPaths();
+\TypeRocket\Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
 ```

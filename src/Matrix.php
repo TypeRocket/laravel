@@ -7,15 +7,24 @@ class Matrix {
     {
         $formGroup = $_POST['form_group'];
         $tr_matrix_id = time(); // id for repeater
-        $form = new \TypeRocket\Form(null);
-        $form->setPopulate(false);
-        $form->setDebugStatus(false);
-        if( ! \TypeRocket\Validate::bracket($formGroup) ) {
-            $formGroup = '';
+
+        $formClass = Config::getFormProviderClass();
+        /** @var Form $form */
+        $form = new $formClass(null);
+
+        if( $form instanceof Form) {
+            $form->setPopulate(false);
+            $form->setDebugStatus(false);
+            if( ! Validate::bracket($formGroup) ) {
+                $formGroup = '';
+            }
+            $paths = Config::getPaths();
+            $form->setGroup($formGroup . "[{$group}][{$tr_matrix_id}][{$type}]");
+            $file = $paths['matrix_folder'] . "/{$group}/{$type}.php";
+        } else {
+            $file = 'Bad form provider. Set .env TR_FORM_PROVIDER. Class must extend ' . Form::class;
         }
-        $paths = \TypeRocket\Config::getPaths();
-        $form->setGroup($formGroup . "[{$group}][{$tr_matrix_id}][{$type}]");
-        $file = $paths['matrix_folder'] . "/{$group}/{$type}.php";
+
         ?>
         <div class="matrix-field-group tr-repeater-group matrix-type-<?php echo $type; ?> matrix-group-<?php echo $group; ?>">
             <div class="repeater-controls">

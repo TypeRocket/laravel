@@ -5,6 +5,7 @@ class Config
 {
 
     static private $paths = null;
+    static private $form = Form::class;
     static private $debug = false;
     static private $seed = null;
 
@@ -21,6 +22,12 @@ class Config
         }
 
         return self::$paths;
+    }
+
+    static public function getFormProviderClass() {
+        self::$form = env('TR_FORM_PROVIDER', Form::class);
+
+        return self::$form;
     }
 
     /**

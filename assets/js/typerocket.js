@@ -1,18 +1,5 @@
 jQuery(document).ready(function ($) {
 
-    // fork from theme options framework
-    function editorHeight() {
-        // Editor Height (needs improvement)
-        $('.wp-editor-wrap').each(function () {
-            var editor_iframe = $(this).find('iframe');
-            if (editor_iframe.height() < 30) {
-                editor_iframe.css({'height': 'auto'});
-            }
-        });
-    }
-
-    editorHeight();
-
     // sorting, colors, dates
     var add_sorting = function (obj) {
             if ($.isFunction($.fn.sortable)) {
@@ -89,14 +76,8 @@ jQuery(document).ready(function ($) {
             $(this).addClass('active').siblings().removeClass('active');
             var section = $(this).find('a').attr('href');
             $(section).addClass('active').siblings().removeClass('active');
-            editorHeight();
-
             e.preventDefault();
         });
-    });
-
-    $('.contextual-help-tabs a').click(function () {
-        editorHeight()
     });
 
 
