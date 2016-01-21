@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
     // Create the media frame.
       $el = $('<div id="photo-picker">' +
         '<ul class="pager">' +
-        '<li><a v-on:click="closeVue()" class="close-media">close</a></li>' +
+        '<li><a v-on:click="closeVue()" class="close-media">Close</a></li>' +
         '<li class="previous" v-show="pagination.previous">' +
         '<a v-on:click="fetchPhotosPaginate(\'previous\')">Previous</a>' +
         '</li>' +
