@@ -10,17 +10,13 @@ jQuery(document).ready(function($) {
     clear_media($(this), field[0]);
   });
 
-  Vue.filter('imgix', function (value) {
-    return 'https://robojuice.imgix.net'+ value + "?w=120&h=120&fit=crop";
-  });
-
   function set_image_uploader(button, field) {
     // Create the media frame.
-    $.get('/media/jfeed').success(function(data) {
+    $.get('/typerocket_media').success(function(data) {
 
       $el = $('<div id="photo-picker">' +
         '<ul> <li v-for="photo in photos">' +
-        '<img data-id="@{{ photo.id }}" :src="photo.sizes.s3.full | imgix" v-on:click="usePhoto($index)" />' +
+        '<img data-id="@{{ photo.id }}" :src="photo.src" v-on:click="usePhoto($index)" />' +
         '</li>' +
         '</ul>' +
         '</div>');
@@ -32,7 +28,7 @@ jQuery(document).ready(function($) {
         methods: {
           usePhoto: function (index) {
             var photo = this.photos[index];
-            var src = 'https://robojuice.imgix.net'+ photo.sizes.s3.full + "?w=120&h=120&fit=crop";
+            var src = photo.src;
 
             $(field).val(photo.id);
             $(button).parent().next().html('<img src="'+src+'"/>');
