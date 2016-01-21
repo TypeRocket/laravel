@@ -39,9 +39,11 @@ class Image extends Field implements ScriptField
         }
 
         if ($value != "") {
-            $img = new {$this->mediaProviderClass}();
+            $class = $this->mediaProviderClass;
+            $img = new $class();
+            /** @var $img MediaProvider */
             $img->findById($value);
-            $src = $img->getThumbsrc();
+            $src = $img->getThumbSrc();
             $image = "<img src=\"{$src}\" />";
         } else {
             $image = '';
