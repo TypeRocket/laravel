@@ -489,7 +489,7 @@
 #photo-picker {
     height: 100vh;
     width: 100%;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.95);
     position: fixed;
     top: 0;
     left: 0;
@@ -498,11 +498,13 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    overflow: scroll;
 }
 
 #photo-picker ul {
     display: flex;
     padding: 0;
+    flex-wrap: wrap;
 }
 
 #photo-picker li {
@@ -515,8 +517,17 @@
 }
 
 #photo-picker li:hover {
-    border: solid green 2px;
+    border: solid #75aac9 2px;
     cursor: pointer;
+}
+
+#photo-picker .pager li:hover {
+    border-color: transparent;
+}
+
+#photo-picker .pager .close-media {
+    color: #ff4e64;
+    border-color: #ff4e64;
 }
 
 @import 'redactor';
