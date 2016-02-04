@@ -23,7 +23,7 @@ class Text extends Field
         $input = new Generator();
         $name = $this->getNameAttributeString();
         $value = $this->getValue();
-        $sanitize = "\\TypeRocket\\Sanitize::" . $this->getSetting('sanitize', 'raw');
+        $sanitize = "\\TypeRocket\\Sanitize::" . $this->getSetting('sanitize', 'attribute');
 
         if ( is_callable($sanitize)) {
             $value = call_user_func($sanitize, $value );

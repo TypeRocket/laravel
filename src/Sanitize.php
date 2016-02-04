@@ -39,7 +39,7 @@ class Sanitize
      */
     public static function attribute( $input )
     {
-        return $input;
+        return htmlspecialchars($input, ENT_QUOTES);
     }
 
     /**
@@ -75,7 +75,7 @@ class Sanitize
      */
     public static function plaintext( $input )
     {
-        $output = $input;
+        $output = htmlspecialchars($input, ENT_QUOTES);
 
         return $output;
     }
