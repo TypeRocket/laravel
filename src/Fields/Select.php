@@ -31,7 +31,7 @@ class Select extends Field implements OptionField
         foreach ($this->options as $key => $value) {
 
             $attr['value'] = $value;
-            if ($option === $value) {
+            if ($option == $value) {
                 $attr['selected'] = 'selected';
             } else {
                 unset( $attr['selected'] );
