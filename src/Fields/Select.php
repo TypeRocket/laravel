@@ -2,6 +2,7 @@
 namespace TypeRocket\Fields;
 
 use \TypeRocket\Html\Generator;
+use TypeRocket\Sanitize;
 
 class Select extends Field implements OptionField
 {
