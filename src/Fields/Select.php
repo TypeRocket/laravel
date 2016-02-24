@@ -30,7 +30,7 @@ class Select extends Field implements OptionField
 
         foreach ($this->options as $key => $value) {
 
-            $attr['value'] = $value;
+            $attr['value'] = Sanitize::attribute($value);
             if ($option == $value) {
                 $attr['selected'] = 'selected';
             } else {
