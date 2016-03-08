@@ -18,17 +18,19 @@ class Getter {
     public function getFieldValue( $field )
     {
         $brackets = null;
+        $prefix = 'tr';
 
         if ($field instanceof Field) {
             $brackets = $field->getBrackets();
             $this->field = $field;
             $request = $this->field->getForm()->getRequest();
+            $prefix = $field->getPrefix();
         }
 
         $keys = $this->geBracketKeys( $brackets );
 
-        if(! empty($request) && ! empty($request->old('tr')) ) {
-            $old = $request->old('tr');
+        if(! empty($request) && ! empty($request->old($prefix)) ) {
+            $old = $request->old($prefix);
             $data = $old[$keys[0]];
 
             if(is_array($data)) {
