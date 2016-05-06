@@ -84,7 +84,12 @@ class Validate
     }
 
     public static function json($json) {
-        json_decode($json);
+        if( is_string($json) ) {
+            json_decode( $json );
+        } else {
+            return false;
+        }
+        
         return (json_last_error() == JSON_ERROR_NONE);
     }
 }
