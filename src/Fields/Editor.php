@@ -26,8 +26,8 @@ class Editor extends Textarea implements ScriptField
     {
         $max = '';
         $generator = new Generator();
-        $value = $this->getValue();
         $this->setAttribute('name', $this->getNameAttributeString());
+        $value = $this->getValue();
         $this->appendStringToAttribute('class', ' typerocket-editor ');
         $sanitize = "\\TypeRocket\\Sanitize::" . $this->getSetting('sanitize', 'editor');
 
