@@ -9,23 +9,23 @@ use \TypeRocket\Html\Generator,
 class Form
 {
 
-    private $resource = null;
-    private $action = null;
-    private $itemId = null;
-    private $path = null;
+    protected $resource = null;
+    protected $action = null;
+    protected $itemId = null;
+    protected $path = null;
 
     /** @var \Illuminate\Database\Eloquent\Model $model */
-    private $model = null;
-    private $request = null;
+    protected $model = null;
+    protected $request = null;
 
     /** @var \TypeRocket\Fields\Field $currentField */
-    private $currentField = '';
+    protected $currentField = '';
 
-    private $populate = true;
-    private $group = null;
-    private $sub = null;
-    private $debugStatus = null;
-    private $settings = array();
+    protected $populate = true;
+    protected $group = null;
+    protected $sub = null;
+    protected $debugStatus = null;
+    protected $settings = array();
 
     /**
      * Instance the From
@@ -407,7 +407,7 @@ class Form
      *
      * @return string
      */
-    private function getLabel()
+    protected function getLabel()
     {
         $open_html  = "<div class=\"control-label\"><span class=\"span-label\">";
         $close_html = '</span></div>';
@@ -430,7 +430,7 @@ class Form
      *
      * @return string
      */
-    private function getDebug()
+    protected function getDebug()
     {
         $generator = new Generator();
         $html      = '';
