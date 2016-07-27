@@ -407,7 +407,7 @@ class Form
      *
      * @return string
      */
-    protected function getLabel()
+    public function getLabel()
     {
         $open_html  = "<div class=\"control-label\"><span class=\"span-label\">";
         $close_html = '</span></div>';
@@ -430,7 +430,7 @@ class Form
      *
      * @return string
      */
-    protected function getDebug()
+    public function getDebug()
     {
         $generator = new Generator();
         $html      = '';
