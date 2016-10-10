@@ -2,8 +2,10 @@
 
 namespace TypeRocket\MediaProcesses;
 
+use Eventviva\ImageResize;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TypeRocket\MediaProvider;
+use TypeRocket\TypeRocketMedia;
 
 class LocalStorage implements ImageProcess
 {
@@ -23,11 +25,12 @@ class LocalStorage implements ImageProcess
         if(! file_exists($folder . '/' . $unique_name) ) {
             $media->path = $path;
             $media->file = $unique_name;
-            $sizes['local']['thumb'] = $media->path . '/thumb-' . $unique_name;
             $sizes['local']['full'] = $media->path . '/' . $media->file;
             $sizes = array_merge($media->sizes, $sizes);
-            $media->sizes = $sizes;
             $file->move( $folder, $media->file);
+            $thumb = $this->makeThumb( storage_path() . $sizes['local']['full'], $media);
+            $sizes['local']['thumb'] = $media->path . '/' . $thumb;
+            $media->sizes = $sizes;
         } else {
             dd('file exists');
         }
@@ -42,5 +45,16 @@ class LocalStorage implements ImageProcess
                 }
             }
         }
+    }
+
+    protected function makeThumb( $file, MediaProvider $media ) {
+        $name = 'thumb-' . $media->file;
+        $new = $media->path . '/' . $name;
+
+        $image = new ImageResize($file);
+        $image->resizeToBestFit(150, 150);
+        $image->save( storage_path() . $new );
+
+        return $name;
     }
 }
