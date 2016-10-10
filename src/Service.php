@@ -23,6 +23,8 @@ class Service extends ServiceProvider
             require __DIR__.'/../routes.php';
         }
 
+        $this->loadMigrationsFrom(__DIR__.'/../migrations');
+
         $this->publishes([
             __DIR__.'/../config.php' => config_path('typerocket.php'),
         ], 'config');
