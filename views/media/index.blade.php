@@ -40,7 +40,7 @@
                             <tr>
                                 <th scope="row">{{$item->id}}</th>
                                 <td>
-                                    @if($item->ext == 'jpg' || $item->ext == 'png' || $item->ext == 'gif' || $item->ext == 'JPG' || $item->ext == 'PNG' || $item->ext == 'GIF')
+                                    @if(in_array(strtolower($item->ext), ['jpg', 'png', 'gif', 'jpeg']))
                                         <a href="{{$item->sizes['local']['full'] or ''}}" target="_blank">
                                             <img width="50"
                                                  height="50"
@@ -48,15 +48,23 @@
                                                  alt="{{$item->alt}}"
                                             >
                                         </a>
+                                    @else
+                                        {{ $item->ext }}
                                     @endif
                                 </td>
                                 <td>
-                                    <strong>Alt Text:</strong> {{ $item->alt }}
-                                    <br>
-                                    <strong>Caption:</strong> {{ $item->caption }}
+                                    @if(in_array(strtolower($item->ext), ['jpg', 'png', 'gif', 'jpeg']))
+                                        <strong>Alt Text:</strong> {{ $item->alt }}
+                                        <br>
+                                        <strong>Caption:</strong> {{ $item->caption }}
+                                    @else
+                                        <strong>Name:</strong> {{ $item->caption }}
+                                    @endif
                                 </td>
                                 <td>
-                                    <a class="btn btn-default" href="/media/{!! $item->id !!}/edit">Edit</a>
+                                    @if(in_array(strtolower($item->ext), ['jpg', 'png', 'gif', 'jpeg']))
+                                        <a class="btn btn-default" href="/media/{!! $item->id !!}/edit">Edit</a>
+                                    @endif
                                     <form style="display: inline;"
                                           method="post"
                                           action="{!! route('media.destroy', ['media' => $item->id]) !!}"

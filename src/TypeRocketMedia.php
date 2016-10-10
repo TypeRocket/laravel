@@ -16,6 +16,6 @@ class TypeRocketMedia extends Model implements MediaProvider
 
     public function getThumbSrc()
     {
-        return '/' . $this->sizes['full'];
+        return $this->sizes['local']['thumb'];
     }
 }
