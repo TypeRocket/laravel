@@ -17,6 +17,7 @@ return [
         ]
     ],
     'matrix' => [
+        'middleware' => ['auth'],
         'folder' => $_SERVER['DOCUMENT_ROOT'] . '/../matrix',
         'api_url' => '/matrix_api'
     ]

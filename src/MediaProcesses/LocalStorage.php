@@ -6,7 +6,7 @@ use Eventviva\ImageResize;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TypeRocket\MediaProvider;
 
-class LocalStorage implements ImageProcess
+class LocalStorage implements MediaProcess
 {
 
     public function run( UploadedFile $file, MediaProvider $media )
@@ -27,8 +27,12 @@ class LocalStorage implements ImageProcess
             $sizes['local']['full'] = $media->path . '/' . $media->file;
             $sizes = array_merge($media->sizes, $sizes);
             $file->move( $folder, $media->file);
-            $thumb = $this->makeThumb( storage_path() . $sizes['local']['full'], $media);
-            $sizes['local']['thumb'] = $media->path . '/' . $thumb;
+
+            if( ends_with($media->file, ['.jpg', '.jpeg', '.png', '.gif'])) {
+                $thumb = $this->makeThumb( storage_path() . $sizes['local']['full'], $media);
+                $sizes['local']['thumb'] = $media->path . '/' . $thumb;
+            }
+
             $media->sizes = $sizes;
         } else {
             dd('file exists');

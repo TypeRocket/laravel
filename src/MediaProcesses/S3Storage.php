@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @package CoverQuest\MediaProcesses
  */
-class S3Storage implements ImageProcess
+class S3Storage implements MediaProcess
 {
 
     public function run( UploadedFile $file, MediaProvider $media )

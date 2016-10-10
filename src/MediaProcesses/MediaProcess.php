@@ -5,7 +5,7 @@ namespace TypeRocket\MediaProcesses;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TypeRocket\MediaProvider;
 
-interface ImageProcess
+interface MediaProcess
 {
     public function run(UploadedFile $file, MediaProvider $media);
     public function down(MediaProvider $media);

@@ -6,7 +6,7 @@ use TypeRocket\MediaProcesses\LocalStorage;
 use TypeRocket\MediaProcesses\Setup;
 use TypeRocket\TypeRocketMedia;
 use TypeRocket\Form;
-use TypeRocket\MediaProcesses\ImageProcess;
+use TypeRocket\MediaProcesses\MediaProcess;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -86,7 +86,7 @@ class TypeRocketMediaController extends Controller
         if( !empty($file) ) {
             $media = new TypeRocketMedia();
             foreach($this->processors as $class) {
-                /** @var $imageProcess ImageProcess */
+                /** @var $imageProcess MediaProcess */
                 $imageProcess = new $class;
                 $imageProcess->run($file, $media);
             }
@@ -151,7 +151,7 @@ class TypeRocketMediaController extends Controller
     {
         $media = TypeRocketMedia::findOrFail($id);
         foreach($this->processors as $class) {
-            /** @var $imageProcess ImageProcess */
+            /** @var $imageProcess MediaProcess */
             $imageProcess = new $class();
             $imageProcess->down($media);
         }
