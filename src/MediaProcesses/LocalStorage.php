@@ -39,8 +39,8 @@ class LocalStorage implements ImageProcess
     {
         if( !empty($media->sizes['local']) ) {
             foreach($media->sizes['local'] as $location) {
-                if(file_exists($location)) {
-                    unlink($location);
+                if(file_exists(storage_path() . $location)) {
+                    unlink(storage_path() .  $location);
                 }
             }
         }
