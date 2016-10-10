@@ -2,7 +2,7 @@
 
 namespace TypeRocket\Controllers;
 
-use TypeRocket\Media;
+use TypeRocket\TypeRocketMedia;
 use TypeRocket\Form;
 use TypeRocket\MediaProcesses\ImageProcess;
 use Illuminate\Http\Request;
@@ -31,9 +31,9 @@ class TypeRocketMediaController extends Controller
     {
 
         if(!empty($_GET['search'])) {
-            $media = Media::orderBy('id', 'desc')->where('caption', 'like', '%' . $_GET['search'] . '%')->paginate(35);
+            $media = TypeRocketMedia::orderBy('id', 'desc')->where('caption', 'like', '%' . $_GET['search'] . '%')->paginate(35);
         } else {
-            $media = Media::orderBy('id', 'desc')->paginate(35);
+            $media = TypeRocketMedia::orderBy('id', 'desc')->paginate(35);
         }
 
         return view('typerocket::media.index', ['media' => $media]);
@@ -48,9 +48,9 @@ class TypeRocketMediaController extends Controller
     {
 
         if(!empty($_GET['search'])) {
-            $media = Media::orderBy('id', 'desc')->where('caption', 'like', '%' . $_GET['search'] . '%')->paginate(35);
+            $media = TypeRocketMedia::orderBy('id', 'desc')->where('caption', 'like', '%' . $_GET['search'] . '%')->paginate(35);
         } else {
-            $media = Media::orderBy('id', 'desc')->paginate(35);
+            $media = TypeRocketMedia::orderBy('id', 'desc')->paginate(35);
         }
 
         return $media;
@@ -78,7 +78,7 @@ class TypeRocketMediaController extends Controller
         $file = $request->file('file');
 
         if( !empty($file) ) {
-            $media = new Media();
+            $media = new TypeRocketMedia();
             foreach($this->processors as $class) {
                 /** @var $imageProcess ImageProcess */
                 $imageProcess = new $class();
@@ -127,7 +127,7 @@ class TypeRocketMediaController extends Controller
     {
         $tr = (object) $request->input('tr');
 
-        $media = Media::findOrFail($id);
+        $media = TypeRocketMedia::findOrFail($id);
         $media->alt = $tr->alt;
         $media->caption = $tr->caption;
         $media->save();
@@ -143,7 +143,7 @@ class TypeRocketMediaController extends Controller
      */
     public function destroy($id)
     {
-        $media = Media::findOrFail($id);
+        $media = TypeRocketMedia::findOrFail($id);
         foreach($this->processors as $class) {
             /** @var $imageProcess ImageProcess */
             $imageProcess = new $class();
