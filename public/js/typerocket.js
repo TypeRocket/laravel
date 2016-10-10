@@ -1,5 +1,12 @@
 jQuery(document).ready(function ($) {
 
+    $(document).on('click', '.confirm-action', function(e) {
+        if( ! confirm('Are you sure?') ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
     // sorting, colors, dates
     var add_sorting = function (obj) {
             if ($.isFunction($.fn.sortable)) {

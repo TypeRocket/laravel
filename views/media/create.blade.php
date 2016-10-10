@@ -18,6 +18,14 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Upload Media</div>
 
+                    <div class="panel-body">
+                        <p>
+                            <a href="{!! route('media.index') !!}" class="btn btn-default">
+                                Media
+                            </a>
+                        </p>
+                    </div>
+
                     <div class="panel-body typerocket-container">
                         {!! $form->open(['enctype' => "multipart/form-data", 'class' => "dropzone" ]) !!}
 

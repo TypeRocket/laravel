@@ -24,37 +24,62 @@
                                 Upload Media
                             </a>
                         </p>
+                    </div>
 
-                        <ul class="list-group">
-                            @forelse($media as $item)
-                                <li class="list-group-item">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Details</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($media as $item)
+                            <tr>
+                                <th scope="row">{{$item->id}}</th>
+                                <td>
                                     @if($item->ext == 'jpg' || $item->ext == 'png' || $item->ext == 'gif' || $item->ext == 'JPG' || $item->ext == 'PNG' || $item->ext == 'GIF')
-                                        <a href="{{$item->sizes['local']['thumb'] or ''}}" target="_blank">
-                                            <img width="150"
-                                                 height="150"
+                                        <a href="{{$item->sizes['local']['full'] or ''}}" target="_blank">
+                                            <img width="50"
+                                                 height="50"
                                                  src="{{ $item->sizes['local']['thumb'] }}?w=150&h=150"
                                                  alt="{{$item->alt}}"
                                             >
                                         </a>
                                     @endif
-                                    <p>
-                                        <a href="/media/{!! $item->id !!}/edit">{{$item->id}}: {{ $item->alt }}</a>
-                                    </p>
+                                </td>
+                                <td>
+                                    <strong>Alt Text:</strong> {{ $item->alt }}
+                                    <br>
+                                    <strong>Caption:</strong> {{ $item->caption }}
+                                </td>
+                                <td>
+                                    <a class="btn btn-default" href="/media/{!! $item->id !!}/edit">Edit</a>
+                                    <form style="display: inline;"
+                                          method="post"
+                                          action="{!! route('media.destroy', ['media' => $item->id]) !!}"
+                                    >
+                                        {!! csrf_field() !!}
+                                        {!! method_field('delete') !!}
+                                        <button type="submit" class="btn confirm-action btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <th scope="row">0</th>
+                                <td colspan="4">No media yet.</td>
+                            </tr>
+                        @endforelse
 
-                                    <div>
-                                        <form method="post" action="{!! route('media.destroy', ['media' => $item->id]) !!}"
-                                              style="display: inline;">
-                                            {!! csrf_field() !!}
-                                            {!! method_field('delete') !!}
-                                            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                                        </form>
-                                    </div>
-                                </li>
-                            @empty
-                                <li class="list-group-item">No media yet.</li>
-                            @endforelse
-                        </ul>
-                    </div>
+                        </tbody>
+                    </table>
+
+                    <ul class="list-group">
+
+                    </ul>
                 </div>
             </div>
 
