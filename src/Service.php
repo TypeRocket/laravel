@@ -14,6 +14,11 @@ class Service extends ServiceProvider
      */
     public function register()
     {
+
+    }
+
+    public function boot()
+    {
         if (! $this->app->routesAreCached() ) {
             require __DIR__.'/../routes.php';
         }
