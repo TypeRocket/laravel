@@ -5,7 +5,6 @@ namespace TypeRocket\MediaProcesses;
 use Eventviva\ImageResize;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TypeRocket\MediaProvider;
-use TypeRocket\TypeRocketMedia;
 
 class LocalStorage implements ImageProcess
 {

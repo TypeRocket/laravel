@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
     set_image_uploader($(this), field[0])
   });
 
-  $(document).on('click', '.image-picker-clear', function() {
+  $(document).on('click', '.image-picker-clear', function(e) {
     e.preventDefault();
     var field = $(this).parent().prev();
     clear_media($(this), field[0]);
@@ -25,8 +25,8 @@ jQuery(document).ready(function($) {
         '</li> ' +
         '</ul>' +
         '<ul>' +
-        '<li v-for="photo in photos">' +
-        '<img :data-id="photo.id" :src="photo.sizes.local.thumb" @click="usePhoto($index)" />' +
+        '<li v-for="(photo, index) in photos">' +
+        '<img :data-id="photo.id" :src="photo.sizes.local.thumb" @click="usePhoto(index)" />' +
         '</li>' +
         '</ul>' +
         '</div>');
@@ -49,10 +49,10 @@ jQuery(document).ready(function($) {
 
           $(field).val(photo.id);
           $(button).parent().next().html('<img src="'+src+'"/>');
-          $el.remove();
+          this.$el.remove();
         },
         closeVue: function() {
-          $el.remove();
+          this.$el.remove();
         },
         fetchPhotosPaginate: function(direction){
 

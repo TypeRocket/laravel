@@ -170,3 +170,7 @@ For example a Matrix field that uses an image field will need to include `image.
 $paths = \TypeRocket\Config::getPaths();
 \TypeRocket\Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
 ```
+
+## Media
+
+Typerocket Media uses https://github.com/eventviva/php-image-resize to create thumbnails.
