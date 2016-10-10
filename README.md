@@ -1,8 +1,32 @@
-## TypeRocket for Laravel 5.1
+## TypeRocket for Laravel 5.3
 
 Originally for WordPress, TypeRocket makes building advanced forms and fields easy for Laravel too.
 
 See http://typerocket.com for documentation (mainly for WordPress).
+
+### Installing
+
+```
+composer require typerocket/laravel
+```
+
+[Laravel Service Providers](https://laravel.com/docs/5.3/providers#registering-providers) make a way for extending Laravel. TypeRocket Laravel 2.0 is a service provider for Laravel. In your `config/app.php` file add:
+
+```php
+'providers' => [
+    // Other Service Providers
+
+    TypeRocket\Service::class,
+],
+```
+
+Then form the command line:
+
+```
+php artisan vendor:publish --provider="TypeRocket\Service"
+```
+
+You can now access the `config/typerocket.php`.
 
 ### .env
 
@@ -100,7 +124,7 @@ class PostController extends Controller
 
 ## Matrix route.
 
-Working with matrix fields.
+Working with matrix fields the service provider will add this for you.
 
 ```php
 Route::post('matrix_api/{group}/{type}', function($group, $type) {
@@ -132,7 +156,7 @@ class VerifyCsrfToken extends BaseVerifier
 
 ## Matrix Assets
 
-Assets will not be loaded form fields because the view is already loaded. Include the posible assets in the controller.
+Assets will not be loaded form fields because the view is already loaded. Include the possible assets in the controller.
 
 For example a Matrix field that uses an image field will need to include `image.js`.
 
