@@ -24,24 +24,33 @@ class Select extends Field implements OptionField
         $default = $this->getSetting('default');
         $this->setAttribute('name', $this->getNameAttributeString());
         $option = $this->getValue();
-        $option     = ! is_null($option) ? $this->getValue() : $default;
-
+        $option = ! is_null($option) ? $option : $default;
         $generator  = new Generator();
         $generator->newElement( 'select', $this->getAttributes() );
-
         foreach ($this->options as $key => $value) {
-
-            $attr['value'] = Sanitize::attribute($value);
-            if ($option == $value) {
-                $attr['selected'] = 'selected';
+            if( is_array($value) ) {
+                $optgroup  = new Generator();
+                $optgroup->newElement( 'optgroup', ['label' => $key] );
+                foreach($value as $k => $v) {
+                    $attr['value'] = $v;
+                    if ( $option == $v && isset($option) ) {
+                        $attr['selected'] = 'selected';
+                    } else {
+                        unset( $attr['selected'] );
+                    }
+                    $optgroup->appendInside( 'option', $attr, (string) $k );
+                }
+                $generator->appendInside( $optgroup );
             } else {
-                unset( $attr['selected'] );
+                $attr['value'] = $value;
+                if ( $option == $value && isset($option) ) {
+                    $attr['selected'] = 'selected';
+                } else {
+                    unset( $attr['selected'] );
+                }
+                $generator->appendInside( 'option', $attr, (string) $key );
             }
-
-            $generator->appendInside( 'option', $attr, (string) $key );
-
         }
-
         return $generator->getString();
     }
 

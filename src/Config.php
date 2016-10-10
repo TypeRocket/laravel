@@ -25,7 +25,7 @@ class Config
     }
 
     static public function getFormProviderClass() {
-        self::$form = env('TR_FORM_PROVIDER', Form::class);
+        self::$form = config('typerocket.form');
 
         return self::$form;
     }
@@ -37,9 +37,19 @@ class Config
      */
     static public function getDebugStatus()
     {
-        self::$debug = env('TR_DEBUG', false);
+        self::$debug = config('typerocket.debug');
 
         return self::$debug;
+    }
+
+    /**
+     * Use Vue JS
+     *
+     * @return bool
+     */
+    static public function useVueJs()
+    {
+        return config('typerocket.vue');
     }
 
     /**
@@ -49,7 +59,7 @@ class Config
      */
     static public function getSeed()
     {
-        self::$seed = env('TR_SEED', 'replaceThis');
+        self::$seed = config('typerocket.seed');
 
         return self::$seed;
     }
@@ -62,11 +72,11 @@ class Config
     static private function defaultPaths()
     {
         return array(
-            'matrix_folder'  => env('TR_MATRIX_FOLDER_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../matrix'),
-            'matrix_api'  => env('TR_MATRIX_API_URL', $_SERVER['DOCUMENT_ROOT'] . '/../matrix'),
+            'matrix_folder'  => config('typerocket.matrix_folder'),
+            'matrix_api'  => config('typerocket.matrix_api'),
             'urls'    => array(
-                'js'  => env('TR_JS_URL', '/js'),
-                'css'  => env('TR_CSS_URL', '/css'),
+                'js'  => config('typerocket.css'),
+                'css'  => config('typerocket.js'),
             )
         );
     }

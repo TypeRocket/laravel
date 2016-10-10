@@ -23,7 +23,13 @@ class Matrix extends Field implements OptionField, ScriptField {
 
     public function enqueueScripts() {
         $paths = Config::getPaths();
-        Assets::addToFooter('js', 'matrix-core', $paths['urls']['js'] . '/matrix.js');
+        if( Config::useVueJs() ) {
+            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
+        }
+        Assets::addToFooter('js', 'typerocket-booyah', $paths['urls']['js'] . '/booyah.js');
+        Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
+        Assets::addToFooter('js', 'typerocket-matrix-core', $paths['urls']['js'] . '/matrix.js');
+        \TypeRocket\Assets::addToFooter('js', 'typerocket-items-list', $paths['urls']['js'] . '/items.js');
     }
 
     /**

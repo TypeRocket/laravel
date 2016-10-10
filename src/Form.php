@@ -57,14 +57,6 @@ class Form
         }
     }
 
-    public function __get( $property )
-    {
-    }
-
-    public function __set( $property, $value )
-    {
-    }
-
     /**
      * Set Request
      *
@@ -347,7 +339,7 @@ class Form
      * @param array $attr
      * @param bool|true $use_rest
      *
-     * @return $this
+     * @return string
      */
     public function open( $attr = array() )
     {
@@ -386,7 +378,7 @@ class Form
      *
      * @param null|string $value
      *
-     * @return $this
+     * @return string
      */
     public function close( $value = null )
     {
@@ -691,63 +683,18 @@ class Form
     }
 
     /**
-     * Date Input
+     * Media Input
      *
      * @param string $name
      * @param array $attr
      * @param array $settings
      * @param bool|true $label
      *
-     * @return Fields\Date
+     * @return Fields\Media
      */
-    public function date( $name, array $attr = array(), array $settings = array(), $label = true )
+    public function media( $name, array $attr = array(), array $settings = array(), $label = true )
     {
-        return new Fields\Date( $name, $attr, $settings, $label, $this );
-    }
-
-    /**
-     * Image Input
-     *
-     * @param string $name
-     * @param array $attr
-     * @param array $settings
-     * @param bool|true $label
-     *
-     * @return Fields\Image
-     */
-    public function image( $name, array $attr = array(), array $settings = array(), $label = true )
-    {
-        return new Fields\Image( $name, $attr, $settings, $label, $this );
-    }
-
-    /**
-     * File Input
-     *
-     * @param string $name
-     * @param array $attr
-     * @param array $settings
-     * @param bool|true $label
-     *
-     * @return Fields\File
-     */
-    public function file( $name, array $attr = array(), array $settings = array(), $label = true )
-    {
-        return new Fields\File( $name, $attr, $settings, $label, $this );
-    }
-
-    /**
-     * Gallery Input
-     *
-     * @param string $name
-     * @param array $attr
-     * @param array $settings
-     * @param bool|true $label
-     *
-     * @return Fields\Gallery
-     */
-    public function gallery( $name, array $attr = array(), array $settings = array(), $label = true )
-    {
-        return new Fields\Gallery( $name, $attr, $settings, $label, $this );
+        return new Fields\Media( $name, $attr, $settings, $label, $this );
     }
 
     /**

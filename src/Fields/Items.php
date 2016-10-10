@@ -16,7 +16,7 @@ class Items extends Field implements ScriptField
 
     public function enqueueScripts() {
         $paths = Config::getPaths();
-        \TypeRocket\Assets::addToFooter('js', 'items-list', $paths['urls']['js'] . '/items.js');
+        \TypeRocket\Assets::addToFooter('js', 'typerocket-items-list', $paths['urls']['js'] . '/items.js');
     }
 
     /**

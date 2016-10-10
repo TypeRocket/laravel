@@ -1,10 +1,13 @@
 <?php
 namespace TypeRocket\Fields;
 
+use Illuminate\Database\Eloquent\Model;
+use TypeRocket\Assets;
 use \TypeRocket\Html\Generator,
     \TypeRocket\Config;
+use TypeRocket\MediaProvider;
 
-class Image extends Field implements ScriptField
+class Media extends Field implements ScriptField
 {
 
     private $mediaProviderClass = null;
@@ -19,7 +22,10 @@ class Image extends Field implements ScriptField
 
     public function enqueueScripts() {
         $paths = Config::getPaths();
-        Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
+        if( Config::useVueJs() ) {
+            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
+        }
+
         Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
     }
 
@@ -40,11 +46,16 @@ class Image extends Field implements ScriptField
 
         if ($value != "") {
             $class = $this->mediaProviderClass;
-            $img = new $class();
-            /** @var $img MediaProvider */
-            $img->findById($value);
-            $src = $img->getThumbSrc();
-            $image = "<img src=\"{$src}\" />";
+            $img = new $class;
+            if( $img instanceof MediaProvider && $img instanceof Model ) {
+                /** @var $img MediaProvider */
+                $img->find($value);
+                $src = $img->getThumbSrc();
+                $image = "<img src=\"{$src}\" />";
+            } else {
+                throw new \Exception('Media field requires an Eloquent Model implementing TypeRocket\MediaProvider');
+            }
+
         } else {
             $image = '';
         }
@@ -75,6 +86,8 @@ class Image extends Field implements ScriptField
 
     public function setMediaProviderClass($class) {
         $this->mediaProviderClass = $class;
+
+        return $this;
     }
 
 }

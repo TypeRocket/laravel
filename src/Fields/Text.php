@@ -1,10 +1,13 @@
 <?php
 namespace TypeRocket\Fields;
 
+use \TypeRocket\Fields\Traits\MaxlengthTrait;
 use \TypeRocket\Html\Generator;
+use \TypeRocket\Sanitize;
 
 class Text extends Field
 {
+    use MaxlengthTrait;
 
     /**
      * Run on construction
@@ -19,26 +22,12 @@ class Text extends Field
      */
     public function getString()
     {
-        $max = '';
         $input = new Generator();
         $name = $this->getNameAttributeString();
         $value = $this->getValue();
-        $sanitize = "\\TypeRocket\\Sanitize::" . $this->getSetting('sanitize', 'attribute');
-
-        if ( is_callable($sanitize)) {
-            $value = call_user_func($sanitize, $value );
-        }
-
-        $maxLength = $this->getAttribute('maxlength');
-
-        if ($maxLength != null && $maxLength > 0) {
-            $left = (int) $maxLength - strlen( utf8_decode( $value ) );
-            $max = new Generator();
-            $max->newElement('p', array('class' => 'tr-maxlength'), 'Characters left: ')->appendInside('span', array(), $left);
-            $max = $max->getString();
-        }
-
-        return $input->newInput($this->getType(), $name, $value, $this->getAttributes() )->getString() . $max;
+        $value = $this->sanitize($value, 'raw');
+        $max = $this->getMaxlength( $value, $this->getAttribute('maxlength'));
+        return $input->newInput($this->getType(), $name, Sanitize::attribute($value), $this->getAttributes() )->getString() . $max;
     }
 
 }

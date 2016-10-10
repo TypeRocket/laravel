@@ -113,7 +113,11 @@ class Sanitize
     /**
      * Sanitize Underscore
      *
-     * Remove all special characters and replace spaces with underscores
+     * Remove all special characters and replace spaces and dashes with underscores
+     * allowing only a single underscore after trimming whitespace form string and
+     * lower casing
+     *
+     * ` --"2_ _e''X  AM!pl'e-"-1_@` -> _2_ex_ample_1_
      *
      * @param $name
      *
@@ -122,18 +126,20 @@ class Sanitize
     public static function underscore( $name )
     {
         if (is_string( $name )) {
-            $name    = trim( strtolower( $name ) );
-            $pattern = '/(\-+)/';
-            $name    = preg_replace( $pattern, '_', $name );
+            $name = preg_replace("/[^A-Za-z0-9\\s\\-\\_?]/",'', strtolower(trim($name)) );
+            $name = preg_replace( '/[-\\s]+/', '_', $name );
+            $name = preg_replace( '/_+/', '_', $name );
         }
-
         return $name;
     }
-
     /**
      * Sanitize Dash
      *
-     * Remove all special characters and replace spaces with dashes
+     * Remove all special characters and replace spaces and underscores with dashes
+     * allowing only a single dash after trimming whitespace form string and
+     * lower casing
+     *
+     * ` --"2_ _e\'\'X  AM!pl\'e-"-1_@` -> -2-ex-ample-1-
      *
      * @param $name
      *
@@ -142,11 +148,10 @@ class Sanitize
     public static function dash( $name )
     {
         if (is_string( $name )) {
-            $name    = trim( strtolower( $name ) );
-            $pattern = '/(\-+)/';
-            $name    = preg_replace( $pattern, '-', $name );
+            $name = preg_replace("/[^A-Za-z0-9\\s\\-\\_?]/",'', strtolower(trim($name)) );
+            $name = preg_replace( '/[_\\s]+/', '-', $name );
+            $name = preg_replace( '/-+/', '-', $name );
         }
-
         return $name;
     }
 

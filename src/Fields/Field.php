@@ -54,12 +54,21 @@ abstract class Field
         $setup->setAccessible(false);
     }
 
-    public function __get( $property )
+    /**
+     * Sanitize field value
+     *
+     * @param $value
+     * @param null $default
+     *
+     * @return mixed
+     */
+    protected function sanitize( $value, $default = null )
     {
-    }
-
-    public function __set( $property, $value )
-    {
+        $sanitize = "\\TypeRocket\\Sanitize::" . $this->getSetting('sanitize', $default );
+        if ( is_callable($sanitize)) {
+            $value = call_user_func($sanitize, $value);
+        }
+        return $value;
     }
 
     /**
