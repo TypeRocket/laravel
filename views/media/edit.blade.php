@@ -2,12 +2,6 @@
 
 @section('content')
 
-    <ol class="breadcrumb">
-        <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/media">Media</a></li>
-        <li class="active">Edit Media</li>
-    </ol>
-
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -25,7 +19,7 @@
     <div class="typerocket-container">
         <div class="row">
             <div class="col-md-2">
-                <img src="https://{{ env('IMGIX_SOURCE') }}{{ $form->getModel()->sizes['s3']['full'] }}?w=120&h=120" alt="{{$form->getModel()->alt}}">
+                <img src="{{ $form->getModel()->sizes['s3']['full'] }}?w=120&h=120" alt="{{$form->getModel()->alt}}">
             </div>
             <div class="col-md-10">
                 {!! $form->open() !!}

@@ -36,7 +36,7 @@ class TypeRocketMediaController extends Controller
             $media = Media::orderBy('id', 'desc')->paginate(35);
         }
 
-        return view('typerocket.media.index', ['media' => $media]);
+        return view('typerocket::media.index', ['media' => $media]);
     }
 
     /**
@@ -64,7 +64,7 @@ class TypeRocketMediaController extends Controller
     public function create()
     {
         $form = new Form('Media', 'create', null, '/media');
-        return view('typerocket.media.create', ['form' => $form]);
+        return view('typerocket::media.create', ['form' => $form]);
     }
 
     /**
@@ -94,11 +94,11 @@ class TypeRocketMediaController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return string
      */
     public function show($id)
     {
-        //
+        return 'Nothing to see';
     }
 
     /**
