@@ -29,10 +29,10 @@
                             @forelse($media as $item)
                                 <li class="list-group-item">
                                     @if($item->ext == 'jpg' || $item->ext == 'png' || $item->ext == 'gif' || $item->ext == 'JPG' || $item->ext == 'PNG' || $item->ext == 'GIF')
-                                        <a href="{{$item->sizes['s3']['full'] or ''}}" target="_blank">
+                                        <a href="{{$item->sizes['local']['full'] or ''}}" target="_blank">
                                             <img width="120"
                                                  height="120"
-                                                 src="https://{{ $item->sizes['s3']['full'] }}?w=120&h=120"
+                                                 src="{{ $item->sizes['local']['full'] }}?w=120&h=120"
                                                  alt="{{$item->alt}}"
                                             >
                                         </a>

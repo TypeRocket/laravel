@@ -18,11 +18,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Upload Media</div>
 
-                    <div class="panel-body">
-                        {!! $form->open(['enctype' => "multipart/form-data", 'class' => "typerocket-dropzone" ]) !!}
+                    <div class="panel-body typerocket-container">
+                        {!! $form->open(['enctype' => "multipart/form-data", 'class' => "dropzone" ]) !!}
 
                         <div class="fallback">
-                            {!! $form->dropzone('file') !!}
+                            {!! $form->dropzone('File') !!}
                             {!! $form->submit('Upload Media') !!}
                         </div>
 

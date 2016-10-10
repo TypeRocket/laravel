@@ -28,7 +28,6 @@ class Getter {
         }
 
         $keys = $this->geBracketKeys( $brackets );
-
         if(! empty($request) && ! empty($request->old($prefix)) ) {
             $old = $request->old($prefix);
             $data = $old[$keys[0]];

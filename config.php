@@ -1,11 +1,23 @@
 <?php
 return [
-    'vue' => env('TR_VUE', true),
-    'form' => env('TR_FORM_PROVIDER', \TypeRocket\Form::class),
+    'vue' => true,
+    'form' => \TypeRocket\Form::class,
     'debug' => env('TR_DEBUG', true),
     'seed' => env('TR_SEED', 'replaceThis'),
-    'matrix_folder' => env('TR_MATRIX_FOLDER_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../matrix'),
-    'matrix_api' => env('TR_MATRIX_API_URL', '/matrix_api'),
-    'js' => env('TR_JS_URL', '/typerocket/js/'),
-    'css' => env('TR_CSS_URL', '/typerocket/css/')
+    'urls' => [
+        'js' => env('TR_JS_URL', '/typerocket/js/'),
+        'css' => env('TR_CSS_URL', '/typerocket/css/'),
+    ],
+    'media' => [
+        'middleware' => ['web', 'auth'],
+        'uploads' => '/uploads/media/',
+        'processors' => [
+            \TypeRocket\MediaProcesses\Setup::class,
+            \TypeRocket\MediaProcesses\LocalStorage::class
+        ]
+    ],
+    'matrix' => [
+        'folder' => $_SERVER['DOCUMENT_ROOT'] . '/../matrix',
+        'api_url' => '/matrix_api'
+    ]
 ];

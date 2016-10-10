@@ -2,6 +2,8 @@
 
 namespace TypeRocket\Controllers;
 
+use TypeRocket\MediaProcesses\LocalStorage;
+use TypeRocket\MediaProcesses\Setup;
 use TypeRocket\TypeRocketMedia;
 use TypeRocket\Form;
 use TypeRocket\MediaProcesses\ImageProcess;
@@ -16,10 +18,15 @@ class TypeRocketMediaController extends Controller
      *
      * @var array
      */
-    protected $processors = [
-        \TypeRocket\MediaProcesses\Setup::class,
-        \TypeRocket\MediaProcesses\LocalStorage::class
-    ];
+    protected $processors;
+
+    public function __construct()
+    {
+        $this->processors = config('typerocket.media.processors', [
+            Setup::class,
+            LocalStorage::class
+        ]);
+    }
 
     /**
      * Display a listing of the resource.
@@ -80,7 +87,7 @@ class TypeRocketMediaController extends Controller
             $media = new TypeRocketMedia();
             foreach($this->processors as $class) {
                 /** @var $imageProcess ImageProcess */
-                $imageProcess = new $class();
+                $imageProcess = new $class;
                 $imageProcess->run($file, $media);
             }
             $media->save();
@@ -112,7 +119,7 @@ class TypeRocketMediaController extends Controller
     {
         $form = new Form(TypeRocketMedia::class, 'update', $id, '/media/' . $id);
         $form->setRequest($request);
-        return view('media.edit', ['form' => $form]);
+        return view('typerocket::media.edit', ['form' => $form]);
     }
 
     /**

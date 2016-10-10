@@ -19,17 +19,15 @@ class S3Storage implements ImageProcess
 
     public function run( UploadedFile $file, MediaProvider $media )
     {
-        $folder = '/uploads/media/' . date('Y') . '/' . date('m');
-
         try {
             $s3 = Storage::disk('s3');
             $local_storage = $media->sizes['local'];
             $sizes['s3'] = [];
 
             foreach($local_storage as $key => $location) {
-                $destination_file = $folder . '/' . basename($location);
-                $s3->put($destination_file, fopen($location, 'r+'), 'public');
-                $sizes['s3'][$key] =$destination_file;
+                $destination_file = $location;
+                $s3->put($destination_file, fopen( storage_path() . $location, 'r+'), 'public');
+                $sizes['s3'][$key] = $destination_file;
             }
             $sizes = array_merge($media->sizes, $sizes);
 

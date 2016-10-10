@@ -16,8 +16,10 @@ class Service extends ServiceProvider
     {
         $paths = Config::getPaths();
         // type ( js || css), id, path
+        Assets::addToFooter('js', 'typerocket-jquery', $paths['urls']['js'] . '/jquery-3.1.1.min.js');
         Assets::addToFooter('js', 'typerocket-core', $paths['urls']['js'] . '/typerocket.js');
         Assets::addToHead('js', 'typerocket-global', $paths['urls']['js'] . '/global.js');
+        Assets::addToHead('css', 'typerocket-core', $paths['urls']['css'] . '/typerocket.css');
     }
 
     public function boot()

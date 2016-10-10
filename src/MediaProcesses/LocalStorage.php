@@ -10,21 +10,24 @@ class LocalStorage implements ImageProcess
 
     public function run( UploadedFile $file, MediaProvider $media )
     {
-        $folder = storage_path() . '/uploads/media/' . date('Y') . '/' . date('m');
+        $path = config('typerocket.media.uploads', '/uploads/media/') . date('Y') . '/' . date('m');
+        $folder = storage_path() . $path;
         $name = preg_replace("/[^a-z0-9\._-]+/i", '-', $file->getClientOriginalName() );
-        $unique_name = time() . '-' . $name;
+        $stamp = time();
+        $unique_name =  $stamp . '-' . $name;
 
         if ( ! file_exists($folder) ) {
             mkdir($folder, 0755, true);
         }
 
         if(! file_exists($folder . '/' . $unique_name) ) {
-            $media->path = $folder;
+            $media->path = $path;
             $media->file = $unique_name;
+            $sizes['local']['thumb'] = $media->path . '/thumb-' . $unique_name;
             $sizes['local']['full'] = $media->path . '/' . $media->file;
             $sizes = array_merge($media->sizes, $sizes);
             $media->sizes = $sizes;
-            $file->move( $media->path, $media->file);
+            $file->move( $folder, $media->file);
         } else {
             dd('file exists');
         }

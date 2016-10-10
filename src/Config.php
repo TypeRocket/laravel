@@ -71,14 +71,14 @@ class Config
      */
     static private function defaultPaths()
     {
-        return array(
-            'matrix_folder'  => config('typerocket.matrix_folder'),
-            'matrix_api'  => config('typerocket.matrix_api'),
-            'urls'    => array(
-                'js'  => config('typerocket.js'),
-                'css'  => config('typerocket.css'),
-            )
-        );
+        return [
+            'matrix_folder'  => config('typerocket.matrix.folder'),
+            'matrix_api'  => config('typerocket.matrix.api_url'),
+            'urls'    => [
+                'js'  => config('typerocket.urls.js'),
+                'css'  => config('typerocket.urls.css'),
+            ]
+        ];
     }
 
 }

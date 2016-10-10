@@ -28,6 +28,12 @@ php artisan vendor:publish --provider="TypeRocket\Service"
 
 You can now access the `config/typerocket.php`.
 
+Finally, add uploads to public folder. From your site root directory run:
+
+```
+ln -s ../storage/uploads uploads
+```
+
 ### .env
 
 Example settings.

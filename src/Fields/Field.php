@@ -64,10 +64,16 @@ abstract class Field
      */
     protected function sanitize( $value, $default = null )
     {
-        $sanitize = "\\TypeRocket\\Sanitize::" . $this->getSetting('sanitize', $default );
+        $sanitize = $this->getSetting('sanitize', $default );
+        if ( is_callable($sanitize)) {
+           return call_user_func($sanitize, $value);
+        }
+
+        $sanitize = "\\TypeRocket\\Sanitize::" . $sanitize;
         if ( is_callable($sanitize)) {
             $value = call_user_func($sanitize, $value);
         }
+
         return $value;
     }
 

@@ -405,48 +405,12 @@ class Form
     {
         $open_html  = "<div class=\"control-label\"><span class=\"span-label\">";
         $close_html = '</span></div>';
-        $debug      = $this->getDebug();
         $html       = '';
         $label      = $this->currentField->getLabelOption();
 
         if ($label) {
             $label = $this->currentField->getSetting( 'label' );
-            $html  = "{$open_html}{$label} {$debug}{$close_html}";
-        } elseif ($debug !== '') {
-            $html = "{$open_html}{$debug}{$close_html}";
-        }
-
-        return $html;
-    }
-
-    /**
-     * Get the debug HTML for the From Field Label
-     *
-     * @return string
-     */
-    public function getDebug()
-    {
-        $generator = new Generator();
-        $html      = '';
-        if ($this->getDebugStatus() === true) {
-            $field_name = $this->currentField->getName();
-            $brackets = $this->currentField->getBrackets();
-
-            $icon = '<i class="tr-icon-bug"></i>';
-
-            if(in_array($field_name, $this->model->getGuarded())) {
-                $icon = '<i class="glyphicon glyphicon-ban-circle"></i> ' . $icon;
-            }
-
-            if(in_array($field_name, $this->model->getFillable())) {
-                $icon = '<i class="glyphicon glyphicon-pencil"></i> ' . $icon;
-            }
-
-            $generator->newElement( 'div', array( 'class' => 'dev' ), $icon );
-            $navTag       = new Tag( 'span', array( 'class' => 'nav' ) );
-            $fieldCopyTag = new Tag( 'span', array( 'class' => 'field' ), $brackets );
-            $navTag->appendInnerTag( $fieldCopyTag );
-            $html = $generator->appendInside( $navTag )->getString();
+            $html  = "{$open_html}{$label} {$close_html}";
         }
 
         return $html;
