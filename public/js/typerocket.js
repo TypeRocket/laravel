@@ -46,6 +46,13 @@ jQuery(document).ready(function ($) {
                 });
             }
         },
+        add_dropzone = function (obj) {
+            if ($.isFunction($.fn.dropzone)) {
+                $(obj).find('form.typerocket-dropzone').each(function () {
+                    $(this).dropzone();
+                });
+            }
+        },
         add_editor = function (obj) {
             if ($.isFunction($.fn.redactor)) {
                 $(obj).find('.typerocket-editor[name]').each(function () {
@@ -59,9 +66,11 @@ jQuery(document).ready(function ($) {
     add_date_picker($trContainer);
     add_color_picker($trContainer);
     add_editor($trContainer);
+    add_dropzone($trContainer);
 
     TypeRocket.repeaterCallbacks.push(add_date_picker);
     TypeRocket.repeaterCallbacks.push(add_color_picker);
+    TypeRocket.repeaterCallbacks.push(add_editor);
     TypeRocket.repeaterCallbacks.push(add_editor);
 
 

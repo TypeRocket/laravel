@@ -14,7 +14,10 @@ class Service extends ServiceProvider
      */
     public function register()
     {
-
+        $paths = Config::getPaths();
+        // type ( js || css), id, path
+        Assets::addToFooter('js', 'typerocket-core', $paths['urls']['js'] . '/typerocket.js');
+        Assets::addToHead('js', 'typerocket-global', $paths['urls']['js'] . '/global.js');
     }
 
     public function boot()

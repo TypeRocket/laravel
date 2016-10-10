@@ -6,7 +6,6 @@ use TypeRocket\TypeRocketMedia;
 use TypeRocket\Form;
 use TypeRocket\MediaProcesses\ImageProcess;
 use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 
 class TypeRocketMediaController extends Controller
@@ -63,7 +62,7 @@ class TypeRocketMediaController extends Controller
      */
     public function create()
     {
-        $form = new Form('Media', 'create', null, '/media');
+        $form = new Form( TypeRocketMedia::class , 'create', null, '/media');
         return view('typerocket::media.create', ['form' => $form]);
     }
 
@@ -111,7 +110,7 @@ class TypeRocketMediaController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $form = new Form('Media', 'update', $id, '/media/' . $id);
+        $form = new Form(TypeRocketMedia::class, 'update', $id, '/media/' . $id);
         $form->setRequest($request);
         return view('media.edit', ['form' => $form]);
     }

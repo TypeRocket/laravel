@@ -30,25 +30,27 @@ class Form
     /**
      * Instance the From
      *
-     * @param string $resource the eloquent model
+     * @param string $model the eloquent model
      * @param string $action update or create
      * @param null|int $itemId you can set this to null or an integer
      * @param string $path submit the form to this path
      */
-    public function __construct( $resource = null, $action = 'update', $itemId = null, $path = null )
+    public function __construct( $model, $action = 'update', $itemId = null, $path = null )
     {
         $paths = Config::getPaths();
         Assets::addToFooter('js', 'typerocket-core', $paths['urls']['js'] . '/typerocket.js');
         Assets::addToHead('js', 'typerocket-global', $paths['urls']['js'] . '/global.js');
 
-        $this->resource = $resource;
+        $this->resource = $model;
         $this->action = $action;
         $this->itemId = $itemId;
         $this->path = $path;
 
-        $model = ucfirst($this->resource);
-        $domain = env('TR_DOMAIN', 'App');
-        $model = "\\$domain\\{$model}";
+        if( ! class_exists($model) ) {
+            $model = ucfirst($this->resource);
+            $domain = env('TR_DOMAIN', 'App');
+            $model = "\\$domain\\{$model}";
+        }
 
         if(class_exists($model) && $this->itemId ) {
             $this->model = call_user_func( "{$model}::find", $this->itemId );
