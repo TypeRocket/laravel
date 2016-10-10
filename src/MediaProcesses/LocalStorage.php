@@ -28,7 +28,7 @@ class LocalStorage implements MediaProcess
             $sizes = array_merge($media->sizes, $sizes);
             $file->move( $folder, $media->file);
 
-            if( ends_with($media->file, ['.jpg', '.jpeg', '.png', '.gif'])) {
+            if( in_array(strtolower($media->ext), ['jpg', 'jpeg', 'png', 'gif']) ) {
                 $thumb = $this->makeThumb( storage_path() . $sizes['local']['full'], $media);
                 $sizes['local']['thumb'] = $media->path . '/' . $thumb;
             }
