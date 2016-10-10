@@ -34,6 +34,8 @@ Finally, add uploads to public folder. From your site root directory run:
 ln -s ../storage/uploads uploads
 ```
 
+*Note: Routes, views, and controller will be adding for you.*
+
 ## JS and CSS init
 
 In blade templates such master templates.
