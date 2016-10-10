@@ -27,7 +27,10 @@
                     </div>
 
                     <div class="panel-body typerocket-container">
-                        <img src="{{ $form->getModel()->sizes['local']['full'] }}?w=120&h=120" alt="{{$form->getModel()->alt}}">
+                        <a href="{{ $form->getModel()->sizes['local']['full'] }}">
+                            <img src="{{ $form->getModel()->sizes['local']['thumb'] }}?w=150&h=150" alt="{{$form->getModel()->alt}}">
+                        </a>
+                        <hr>
                         {!! $form->open() !!}
                         {!! $form->text('alt')->setLabel('SEO Image Description') !!}
                         {!! $form->text('Caption')->setSetting('help', 'Used by search feature') !!}
