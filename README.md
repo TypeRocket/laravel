@@ -34,19 +34,6 @@ Finally, add uploads to public folder. From your site root directory run:
 ln -s ../storage/uploads uploads
 ```
 
-### .env
-
-Example settings.
-
-```
-TR_MATRIX_API_URL=/matrix_api
-TR_FORM_PROVIDER=\TypeRocket\Form
-TR_JS_URL=/js/tr
-TR_CSS_URL=/css/tr
-TR_DEBUG=true
-TR_DOMAIN=App
-```
-
 ## JS and CSS init
 
 In blade templates such master templates.
