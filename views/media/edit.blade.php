@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="panel-body typerocket-container">
-                        <a href="{{ $form->getModel()->sizes['local']['full'] }}">
+                        <a target="_blank" href="{{ $form->getModel()->sizes['local']['full'] }}">
                             <img src="{{ $form->getModel()->sizes['local']['thumb'] }}?w=150&h=150" alt="{{$form->getModel()->alt}}">
                         </a>
                         <hr>
