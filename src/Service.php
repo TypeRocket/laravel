@@ -28,7 +28,7 @@ class Service extends ServiceProvider
         ], 'config');
 
         $this->publishes([
-            __DIR__.'/assets' => public_path('typerocket'),
+            __DIR__.'/../public' => public_path('typerocket'),
         ], 'public');
 
         $this->loadViewsFrom(__DIR__.'/../views', 'typerocket');

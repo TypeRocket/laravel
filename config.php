@@ -6,6 +6,6 @@ return [
     'seed' => env('TR_SEED', 'replaceThis'),
     'matrix_folder' => env('TR_MATRIX_FOLDER_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../matrix'),
     'matrix_api' => env('TR_MATRIX_API_URL', '/matrix_api'),
-    'js' => env('TR_JS_URL', '/js/tr'),
-    'css' => env('TR_CSS_URL', '/css/tr')
+    'js' => env('TR_JS_URL', '/typerocket/js/'),
+    'css' => env('TR_CSS_URL', '/typerocket/css/')
 ];
