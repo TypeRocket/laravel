@@ -75,8 +75,8 @@ class Config
             'matrix_folder'  => config('typerocket.matrix_folder'),
             'matrix_api'  => config('typerocket.matrix_api'),
             'urls'    => array(
-                'js'  => config('typerocket.css'),
-                'css'  => config('typerocket.js'),
+                'js'  => config('typerocket.js'),
+                'css'  => config('typerocket.css'),
             )
         );
     }

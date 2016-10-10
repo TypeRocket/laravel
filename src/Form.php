@@ -747,6 +747,20 @@ class Form
     }
 
     /**
+     * Drop Zone
+     *
+     * @param $name
+     * @param array $attr
+     * @param array $settings
+     * @param bool $label
+     *
+     * @return \TypeRocket\Fields\DropZone
+     */
+    public function dropzone( $name, array $attr = array(), array $settings = array(), $label = true ) {
+        return new Fields\DropZone( $name, $attr, $settings, $label, $this );
+    }
+
+    /**
      * Field object into input
      *
      * @param Fields\Field $field
