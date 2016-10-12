@@ -49,7 +49,7 @@ class Media extends Field implements ScriptField
             $img = new $class;
             if( $img instanceof MediaProvider && $img instanceof Model ) {
                 /** @var $img MediaProvider */
-                $img->find($value);
+                $img = $img->find($value);
                 $src = $img->getThumbSrc();
                 $image = "<img src=\"{$src}\" />";
             } else {
