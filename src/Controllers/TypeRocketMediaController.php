@@ -132,8 +132,19 @@ class TypeRocketMediaController extends Controller
     public function update(Request $request, $id)
     {
         $tr = (object) $request->input('tr');
+        $file = $request->file('tr.file');
 
         $media = TypeRocketMedia::findOrFail($id);
+
+        if( !empty($file) ) {
+            (new LocalStorage)->down($media);
+            foreach($this->processors as $class) {
+                /** @var $imageProcess MediaProcess */
+                $imageProcess = new $class;
+                $imageProcess->run($file, $media);
+            }
+        }
+
         $media->alt = $tr->alt;
         $media->caption = $tr->caption;
         $media->save();

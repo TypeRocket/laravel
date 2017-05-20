@@ -27,13 +27,20 @@
                     </div>
 
                     <div class="panel-body typerocket-container">
-                        <a target="_blank" href="{{ $form->getModel()->sizes['local']['full'] }}">
-                            <img src="{{ $form->getModel()->sizes['local']['thumb'] }}?w=150&h=150" alt="{{$form->getModel()->alt}}">
-                        </a>
+                        @if(in_array(strtolower($form->getModel()->ext), ['jpg', 'png', 'gif', 'jpeg']))
+                            <a target="_blank" href="{{ $form->getModel()->sizes['local']['full'] }}">
+                                <img src="{{ $form->getModel()->sizes['local']['thumb'] }}?w=150&h=150" alt="{{$form->getModel()->alt}}">
+                            </a>
+                        @else
+                            <a target="_blank" href="{{ $form->getModel()->sizes['local']['full'] }}">
+                                {{ $form->getModel()->alt }}
+                            </a>
+                        @endif
                         <hr>
-                        {!! $form->open() !!}
+                        {!! $form->open(['enctype' => "multipart/form-data"]) !!}
                         {!! $form->text('alt')->setLabel('SEO Image Description') !!}
                         {!! $form->text('Caption')->setSetting('help', 'Used by search feature') !!}
+                        {!! $form->dropzone('file')->setLabel('Update File')->setPopulate(false) !!}
                         {!! $form->submit('Update Media') !!}
                         {!! $form->close() !!}
                     </div>
