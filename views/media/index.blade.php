@@ -62,7 +62,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(in_array(strtolower($item->ext), ['jpg', 'png', 'gif', 'jpeg']))
+                                    @if(in_array(strtolower($item->ext), ['jpg', 'png', 'gif', 'jpeg', 'pdf']))
                                         <a class="btn btn-default" href="/media/{!! $item->id !!}/edit">Edit</a>
                                     @endif
                                     <form style="display: inline;"
