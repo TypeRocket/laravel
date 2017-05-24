@@ -26,7 +26,11 @@ jQuery(document).ready(function($) {
         '</ul>' +
         '<ul>' +
         '<li v-for="(photo, index) in photos">' +
-        '<img :data-id="photo.id" :src="photo.sizes.local.thumb" @click="usePhoto(index)" />' +
+          '<img :data-id="photo.id" :src="photo.sizes.local.thumb" @click="usePhoto(index)" v-if="photo.sizes.local.thumb" />' +
+          '<div :data-id="photo.id" @click="usePhoto(index)" v-else>' +
+            '<p class="media-pdf-item fa fa-file-pdf-o" v-if="photo.ext == \'pdf\'"></p>' +
+            '{{ photo.caption }}' +
+          '</div>' +
         '</li>' +
         '</ul>' +
         '</div>');
@@ -46,9 +50,17 @@ jQuery(document).ready(function($) {
         usePhoto: function (index) {
           var photo = this.photos[index];
           var src = photo.sizes.local.thumb;
+          var html = '';
+
+          if (src) {
+            html = '<img src="'+src+'"/>';
+          } else {
+            var icon = photo.ext == 'pdf' ? '<p class="media-pdf-item fa fa-file-pdf-o"></p>' : '';
+            html = '<div>' + icon + photo.caption + '</div>';
+          }
 
           $(field).val(photo.id);
-          $(button).parent().next().html('<img src="'+src+'"/>');
+          $(button).parent().next().html(html);
           this.$el.remove();
         },
         closeVue: function() {
