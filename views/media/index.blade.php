@@ -24,6 +24,20 @@
                                 Upload Media
                             </a>
                         </p>
+                        <strong>Filter Media</strong>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <select name="type">
+                                    @foreach (['image' => 'Image', 'pdf' => 'PDF'] as $key => $value)
+                                        <option value="{{ $key }}" {{ $key == $filters['type'] ? 'selected="selected"' : '' }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input name="search" type="text" placeholder="Search caption" value="{{ $filters['search'] }}">
+                            </div>
+                            <button type="submit" class="btn btn-default">Filter</button>
+                        </form>
                     </div>
 
                     <table class="table">
@@ -91,7 +105,7 @@
                 </div>
             </div>
 
-            {!! $media->appends(Request::only('search'))->render() !!}
+            {!! $media->appends($filters)->render() !!}
 
         </div>
     </div>
