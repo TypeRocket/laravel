@@ -33,16 +33,26 @@ class TypeRocketMediaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filters = [
+            'type' => $request->get('type'),
+            'search' => $request->get('search'),
+        ];
+        $query = TypeRocketMedia::orderBy('id', 'desc');
 
-        if(!empty($_GET['search'])) {
-            $media = TypeRocketMedia::orderBy('id', 'desc')->where('caption', 'like', '%' . $_GET['search'] . '%')->paginate(35);
-        } else {
-            $media = TypeRocketMedia::orderBy('id', 'desc')->paginate(35);
+        if ($filters['type']) {
+            $ext = $filters['type'] == 'pdf' ? ['pdf'] : ['jpg', 'png', 'gif', 'jpeg'];
+            $query = $query->whereIn('ext', $ext);
         }
 
-        return view('typerocket::media.index', ['media' => $media]);
+        if ($filters['search']) {
+            $query = $query->where('caption', 'like', '%' . $filters['search'] . '%');
+        }
+
+        $media = $query->paginate(35);
+
+        return view('typerocket::media.index', compact('media', 'filters'));
     }
 
     /**
