@@ -28,7 +28,7 @@
                         <form class="form-inline">
                             <div class="form-group">
                                 <select name="type">
-                                    @foreach (['image' => 'Image', 'pdf' => 'PDF'] as $key => $value)
+                                    @foreach (['all' => 'All', 'image' => 'Image', 'pdf' => 'PDF'] as $key => $value)
                                         <option value="{{ $key }}" {{ $key == $filters['type'] ? 'selected="selected"' : '' }}>{{ $value }}</option>
                                     @endforeach
                                 </select>

@@ -24,6 +24,20 @@ jQuery(document).ready(function($) {
         '<a @click="fetchPhotosPaginate(\'next\')">Next</a>' +
         '</li> ' +
         '</ul>' +
+        '<strong>Filter Media</strong>' +
+        '<div class="form-inline">' +
+            '<div class="form-group" style="margin-right: 5px;">' +
+                '<select v-model="filters.type">' +
+                    '<option value="all">All</option>' +
+                    '<option value="image">Image</option>' +
+                    '<option value="pdf">PDF</option>' +
+                '</select>' +
+            '</div>' +
+            '<div class="form-group" style="margin-right: 5px;">' +
+                '<input v-model="filters.search" @keyup.enter="fetch" type="text" placeholder="Search caption">' +
+            '</div>' +
+            '<button class="btn btn-default" @click="fetch">Filter</button>' +
+        '</div>' +
         '<ul>' +
         '<li v-for="(photo, index) in photos">' +
           '<img :data-id="photo.id" :src="photo.sizes.local.thumb" @click="usePhoto(index)" v-if="photo.sizes.local.thumb" />' +
@@ -44,6 +58,10 @@ jQuery(document).ready(function($) {
           page: 1,
           previous: false,
           next: false
+        },
+        filters: {
+          type: 'all',
+          search: null
         }
       },
       methods: {
@@ -75,14 +93,25 @@ jQuery(document).ready(function($) {
             ++this.pagination.page;
           }
 
-          var page = this.pagination.page, that = this;
+          this.fetch();
+        },
+        fetch: function() {
+          var that = this;
+          var query = 'page=' + this.pagination.page;
 
-          $.get('/typerocket_media?page=' + page, function(data) {
+          if (this.filters.type) {
+            query += '&type=' + this.filters.type;
+          }
+
+          if (this.filters.search) {
+            query += '&search=' + this.filters.search;
+          }
+
+          $.get('/typerocket_media?' + query, function(data) {
             that.photos       			  = data.data;
             that.pagination.next 		  = data.next_page_url;
             that.pagination.previous 	= data.prev_page_url;
           });
-
         }
       },
       ready: function() { // 1.1
