@@ -22,6 +22,13 @@ class TypeRocketMediaController extends Controller
 
     public function __construct()
     {
+        foreach (config('typerocket.media.controller_middleware', []) as $method => $middleware) {
+            $middleware = (array) $middleware;
+            foreach ($middleware as $name) {
+                $this->middleware($name, ['only' => $method]);
+            }
+        }
+
         $this->processors = config('typerocket.media.processors', [
             Setup::class,
             LocalStorage::class

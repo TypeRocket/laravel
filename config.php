@@ -10,6 +10,9 @@ return [
     ],
     'media' => [
         'middleware' => ['web', 'auth'],
+        'controller_middleware' => [
+            'destroy' => []
+        ],
         'uploads' => '/uploads/media/',
         'processors' => [
             \TypeRocket\MediaProcesses\Setup::class,
