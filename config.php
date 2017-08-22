@@ -20,7 +20,7 @@ return [
         ]
     ],
     'matrix' => [
-        'middleware' => ['auth'],
+        'middleware' => ['web', 'auth'],
         'folder' => $_SERVER['DOCUMENT_ROOT'] . '/../matrix',
         'api_url' => '/matrix_api'
     ]
