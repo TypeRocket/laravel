@@ -671,7 +671,7 @@ class Form
 	 * @param array $settings
 	 * @param bool|true $label
 	 *
-	 * @return Fields\Media
+	 * @return Fields\Gallery
 	 */
 	public function mediaGallery( $name, array $attr = array(), array $settings = array(), $label = true )
 	{
