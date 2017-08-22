@@ -2,12 +2,16 @@
 
 namespace TypeRocket\Fields;
 
-use TypeRocket\Html\Generator;
+use Illuminate\Database\Eloquent\Model;
+use \TypeRocket\Html\Generator,
+	\TypeRocket\Config,
+	\TypeRocket\Assets;
+use TypeRocket\MediaProvider;
 
 class Gallery extends Field implements ScriptField
 {
 
-	protected $mediaProviderClass = null;
+	protected $mediaProviderClass;
 
 	/**
 	 * Run on construction
@@ -46,8 +50,7 @@ class Gallery extends Field implements ScriptField
 				$img = new $class;
 
 				if( $img instanceof MediaProvider && $img instanceof Model ) {
-					/** @var $img MediaProvider */
-					$img = $img->find($value);
+					$img = $img->find($id);
 					$src = $img->getThumbSrc();
 					$image = "<img src=\"{$src}\" />";
 				} else {
