@@ -2,7 +2,6 @@ jQuery(document).ready(function ($) {
 
     $('.typerocket-container').on('click', '.matrix-button', function (e) {
         var $that = $(this);
-        console.log('clicked matrix');
 
         if (!$that.is(":disabled")) {
             var mxid = $that.data('id'), group = $that.data('folder');
@@ -13,6 +12,7 @@ jQuery(document).ready(function ($) {
 
             $that.attr("disabled", "disabled").val('Adding...');
 
+            // TODO: remove matrix_api hard coding
             var url = '/matrix_api/' + group + '/' + type, form_group = $select.data('group');
 
             $.ajax({
