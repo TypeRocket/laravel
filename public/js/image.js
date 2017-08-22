@@ -78,8 +78,6 @@ jQuery(document).ready(function ($) {
                         $(item).append($clone.val(photo.id).attr('name', $clone.attr('name') + '[]'));
                         $(list).append(item);
                     } else {
-                        $(field).next().val(s3_location);
-
                         if (src) {
                             html = '<img src="' + src + '"/>';
                         } else {
