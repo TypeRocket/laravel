@@ -55,7 +55,7 @@
                                 <th scope="row">{{$item->id}}</th>
                                 <td>
                                     @if(in_array(strtolower($item->ext), ['jpg', 'png', 'gif', 'jpeg']))
-                                        <a href="{{$item->sizes['local']['full'] or ''}}" target="_blank">
+                                        <a href="{{ $item->getFullSrc() }}" target="_blank">
                                             <img width="50"
                                                  height="50"
                                                  src="{{ $item->sizes['local']['thumb'] }}?w=150&h=150"
