@@ -10,7 +10,7 @@ use TypeRocket\MediaProvider;
 class Media extends Field implements ScriptField
 {
 
-    private $mediaProviderClass = null;
+    protected $mediaProviderClass = null;
 
     /**
      * Run on construction

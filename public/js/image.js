@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
         '</div>' +
         '<ul>' +
         '<li v-for="(photo, index) in photos">' +
-          '<img :data-id="photo.id" :src="photo.sizes.local.thumb" @click="usePhoto(index)" v-if="photo.sizes.local.thumb" />' +
+          '<img :data-id="photo.id" :src="photo.thumbnail_image" @click="usePhoto(index)" v-if="photo.thumbnail_image" />' +
           '<div :data-id="photo.id" @click="usePhoto(index)" v-else>' +
             '<p class="media-pdf-item fa fa-file-pdf-o" v-if="photo.ext == \'pdf\'"></p>' +
             '{{ photo.caption }}' +
@@ -67,7 +67,7 @@ jQuery(document).ready(function($) {
       methods: {
         usePhoto: function (index) {
           var photo = this.photos[index];
-          var src = photo.sizes.local.thumb;
+          var src = photo.thumbnail_image;
           var html = '';
 
           if (src) {

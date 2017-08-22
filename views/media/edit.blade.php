@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends(config('typerocket.view.extends'))
 
-@section('content')
+@section(config('typerocket.view.section'))
 
     <div class="container">
         <div class="row">
@@ -28,11 +28,11 @@
 
                     <div class="panel-body typerocket-container">
                         @if(in_array(strtolower($form->getModel()->ext), ['jpg', 'png', 'gif', 'jpeg']))
-                            <a target="_blank" href="{{ $form->getModel()->sizes['local']['full'] }}">
-                                <img src="{{ $form->getModel()->sizes['local']['thumb'] }}?w=150&h=150" alt="{{$form->getModel()->alt}}">
+                            <a target="_blank" href="{{ $form->getModel()->getFullSrc() }}">
+                                <img src="{{ $form->getModel()->getThumbSrc() }}?w=150&h=150" alt="{{$form->getModel()->alt}}">
                             </a>
                         @else
-                            <a target="_blank" href="{{ $form->getModel()->sizes['local']['full'] }}">
+                            <a target="_blank" href="{{ $form->getModel()->getFullSrc() }}">
                                 {{ $form->getModel()->alt }}
                             </a>
                         @endif

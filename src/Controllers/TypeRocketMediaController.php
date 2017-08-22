@@ -8,10 +8,14 @@ use TypeRocket\TypeRocketMedia;
 use TypeRocket\Form;
 use TypeRocket\MediaProcesses\MediaProcess;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class TypeRocketMediaController extends Controller
+class TypeRocketMediaController extends BaseController
 {
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
      * Runs top to bottom
@@ -62,7 +66,7 @@ class TypeRocketMediaController extends Controller
             'type' => $request->get('type'),
             'search' => $request->get('search'),
         ];
-        $query = TypeRocketMedia::orderBy('id', 'desc');
+        $query = $this->getMediaModel()->orderBy('id', 'desc');
 
         if ($filters['type'] && $filters['type'] != 'all') {
             $ext = $filters['type'] == 'pdf' ? ['pdf'] : ['jpg', 'png', 'gif', 'jpeg'];
@@ -83,7 +87,7 @@ class TypeRocketMediaController extends Controller
      */
     public function create()
     {
-        $form = new Form( TypeRocketMedia::class , 'create', null, '/media');
+        $form = new Form( $this->getMediaModelClass() , 'create', null, '/media');
         return view('typerocket::media.create', ['form' => $form]);
     }
 
@@ -98,7 +102,7 @@ class TypeRocketMediaController extends Controller
         $file = $request->file('file');
 
         if( !empty($file) ) {
-            $media = new TypeRocketMedia();
+            $media = $this->getMediaModel();
             foreach($this->processors as $class) {
                 /** @var $imageProcess MediaProcess */
                 $imageProcess = new $class;
@@ -131,7 +135,7 @@ class TypeRocketMediaController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $form = new Form(TypeRocketMedia::class, 'update', $id, '/media/' . $id);
+        $form = new Form($this->getMediaModelClass(), 'update', $id, '/media/' . $id);
         $form->setRequest($request);
         return view('typerocket::media.edit', ['form' => $form]);
     }
@@ -148,10 +152,17 @@ class TypeRocketMediaController extends Controller
         $tr = (object) $request->input('tr');
         $file = $request->file('tr.file');
 
-        $media = TypeRocketMedia::findOrFail($id);
+        $media = $this->getMediaModel()->findOrFail($id);
 
         if( !empty($file) ) {
-            (new LocalStorage)->down($media);
+	        foreach($this->processors as $class) {
+		        /** @var $imageProcess MediaProcess */
+		        $imageProcess = new $class;
+		        if(method_exists($imageProcess, 'down')) {
+			        $imageProcess->down($media);
+		        }
+	        }
+
             foreach($this->processors as $class) {
                 /** @var $imageProcess MediaProcess */
                 $imageProcess = new $class;
@@ -174,7 +185,7 @@ class TypeRocketMediaController extends Controller
      */
     public function destroy($id)
     {
-        $media = TypeRocketMedia::findOrFail($id);
+        $media = $this->getMediaModel()->findOrFail($id);
         foreach($this->processors as $class) {
             /** @var $imageProcess MediaProcess */
             $imageProcess = new $class();
@@ -184,4 +195,15 @@ class TypeRocketMediaController extends Controller
 
         return redirect()->route('media.index');
     }
+
+	/**
+	 * @return \TypeRocket\TypeRocketMedia
+	 */
+	public function getMediaModel() {
+		return new TypeRocketMedia();
+    }
+
+	public function getMediaModelClass() {
+		return TypeRocketMedia::class;
+	}
 }

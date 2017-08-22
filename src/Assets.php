@@ -38,6 +38,9 @@ class Assets {
 
     public static function getFooterString()
     {
+	    $paths = Config::getPaths();
+	    Assets::addToFooter('js', 'typerocket-core', $paths['urls']['js'] . '/typerocket.js');
+
         return self::buildTags(self::$footer);
     }
 

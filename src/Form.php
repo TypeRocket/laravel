@@ -663,6 +663,21 @@ class Form
         return new Fields\Media( $name, $attr, $settings, $label, $this );
     }
 
+	/**
+	 * Media Input
+	 *
+	 * @param string $name
+	 * @param array $attr
+	 * @param array $settings
+	 * @param bool|true $label
+	 *
+	 * @return Fields\Media
+	 */
+	public function mediaGallery( $name, array $attr = array(), array $settings = array(), $label = true )
+	{
+		return new Fields\Gallery( $name, $attr, $settings, $label, $this );
+	}
+
     /**
      * Items Input
      *

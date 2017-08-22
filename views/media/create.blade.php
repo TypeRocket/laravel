@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends(config('typerocket.view.extends'))
 
-@section('content')
+@section(config('typerocket.view.section'))
 
     <div class="container">
         <div class="row">

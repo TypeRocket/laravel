@@ -63,7 +63,10 @@ jQuery(document).ready(function ($) {
         add_editor = function (obj) {
             if ($.isFunction($.fn.redactor)) {
                 $(obj).find('.typerocket-editor[name]').each(function () {
-                    $(this).redactor();
+                    $(this).redactor({
+                        plugins: ['imagemanager'],
+                        imageManagerJson: '/media/jfeed'
+                    });
                 });
             }
         };
