@@ -1,5 +1,8 @@
 jQuery(document).ready(function ($) {
 
+    // Image Uploader
+    // -------------------------------------------------------------------------
+
     $(document).on('click', '.image-picker-button', function (e) {
         e.preventDefault();
         var field = $(this).parent().prev();
@@ -9,7 +12,28 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.image-picker-clear', function (e) {
         e.preventDefault();
         var field = $(this).parent().prev();
-        clear_media($(this), field[0]);
+        $(field).val('');
+        $(this).parent().next().html('');
+    });
+
+    // Gallery Image Uploader
+    // -------------------------------------------------------------------------
+
+    $(document).on('click', '.gallery-picker-button', function () {
+        var field = $(this).parent().prev();
+        init_uploader($(this), field[0], true);
+    });
+
+    $(document).on('click', '.gallery-picker-clear', function () {
+        var list = $(this).parent().next();
+        if (confirm('Remove all images?')) {
+            $(list).html('');
+        }
+    });
+
+    $(document).on('click', '.tr-gallery-list a', function (e) {
+        e.preventDefault();
+        $(this).parent().remove();
     });
 
     function init_uploader(button, field, gallery) {
@@ -135,44 +159,5 @@ jQuery(document).ready(function ($) {
         // When an image is selected, run a callback.
         return false;
     }
-
-    function clear_media(button, field) {
-
-        $(field).val('');
-        $(button).parent().next().html('');
-
-        return false;
-    }
-
-    // Gallery Image Uploader
-    // -------------------------------------------------------------------------
-
-    $(document).on('click', '.gallery-picker-button', function () {
-        var field = $(this).parent().prev();
-        set_gallery_uploader($(this), field[0]);
-    });
-
-    $(document).on('click', '.gallery-picker-clear', function () {
-        var list = $(this).parent().next();
-        clear_gallery($(this), list[0]);
-    });
-
-    function set_gallery_uploader(button, list) {
-        init_uploader(button, list, true)
-    }
-
-    function clear_gallery(button, list) {
-
-        if (confirm('Remove all images?')) {
-            $(list).html('');
-        }
-
-        return false;
-    }
-
-    $('.tr-gallery-list').on('click', 'a', function (e) {
-        e.preventDefault();
-        $(this).parent().remove();
-    })
 
 });
