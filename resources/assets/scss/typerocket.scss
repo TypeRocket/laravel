@@ -529,6 +529,59 @@
     border-color: #ff4e64;
 }
 
+.typerocket-fields-modelsearch {
+
+  .model-search-vue {
+    margin-bottom: 10px;
+  }
+
+  .node-title {
+    color: $blue;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: solid 1px $blue;
+  }
+
+  .close-media {
+    color: #ff4e64;
+    border: solid 1px #ff4e64;
+    border-radius: 20px;
+    padding: 3px 6px;
+    font-size: 12px;
+    margin: 5px 0;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .search-list {
+    color: $brown;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    border-radius: 5px;
+    font-size: 14px;
+    border: solid 1px $brown;
+
+    li {
+      padding: 5px 10px;
+    }
+
+    li + li {
+      border-top: solid 1px $brown;
+    }
+
+
+    li:hover {
+      color: $orange;
+      cursor: pointer;
+      background: transparentize($orange, .9);
+    }
+
+  }
+}
+
 @import 'redactor';
 @import 'ui-datepicker';
 @import 'dropzone';

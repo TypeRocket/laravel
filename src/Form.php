@@ -679,6 +679,20 @@ class Form
 	}
 
     /**
+     * Model Search
+     *
+     * @param $name
+     * @param array $attr
+     * @param array $settings
+     * @param bool $label
+     *
+     * @return \TypeRocket\Fields\ModelSearch
+     */
+    public function modelSearch( $name, array $attr = array(), array $settings = array(), $label = true ) {
+        return new Fields\ModelSearch( $name, $attr, $settings, $label, $this );
+    }
+
+    /**
      * Items Input
      *
      * @param string $name

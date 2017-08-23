@@ -1,7 +1,12 @@
 <?php
 return [
     'vue' => true,
-    'form' => \TypeRocket\Form::class,
+    'form' => \CoverQuest\Form::class,
+    'db_table' => 'tr_media',
+    'view' => [
+        'extends' => 'layouts.app',
+        'section' => 'content',
+    ],
     'debug' => env('TR_DEBUG', true),
     'seed' => env('TR_SEED', 'replaceThis'),
     'urls' => [
@@ -21,7 +26,11 @@ return [
     ],
     'matrix' => [
         'middleware' => ['web', 'auth'],
-        'folder' => $_SERVER['DOCUMENT_ROOT'] . '/../matrix',
+        'folder' =>  base_path('/matrix'),
         'api_url' => '/matrix_api'
+    ],
+    'route' => [
+        'controller' => \TypeRocket\Controllers\TypeRocketMediaController::class,
+        'jfeed' => \TypeRocket\Controllers\TypeRocketMediaController::class . '@jfeed',
     ]
 ];

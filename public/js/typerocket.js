@@ -81,8 +81,6 @@ jQuery(document).ready(function ($) {
     TypeRocket.repeaterCallbacks.push(add_date_picker);
     TypeRocket.repeaterCallbacks.push(add_color_picker);
     TypeRocket.repeaterCallbacks.push(add_editor);
-    TypeRocket.repeaterCallbacks.push(add_editor);
-
 
     $trContainer.on('keyup', 'input[maxlength], textarea[maxlength]', function () {
         var $that = $(this);
@@ -246,5 +244,69 @@ jQuery(document).ready(function ($) {
 
         }
     };
+
+    // model search
+    $(document).on('click', '.model-search-vue', function () {
+        init_model_search($(this), $(this).data('api'));
+    });
+
+    function init_model_search(button, apiURI) {
+        if ($('#model-picker').length > 0) {
+            return;
+        }
+
+        var $el = $('<div id="model-picker">' +
+            '<ul class="controls">' +
+            '<li><a v-on:click="closeVue()" class="close-media">Cancel</a></li>' +
+            '<li><input placeholder="Type search" @keyup="searchNodes(this)" id="search-nodes" type="text"></li>' +
+            '</ul>' +
+            '<ul class="search-list">' +
+            '<li v-for="node in nodes" v-on:click="useNode(node.id, node.title)">' +
+            '<span>{{node.title}}</span>' +
+            '</li>' +
+            '</ul>' +
+            '</div>');
+        $(button).next().next().after($el);
+
+        new Vue({
+            el: '#model-picker',
+            data: {
+                nodes: [],
+                search: ''
+            },
+            methods: {
+                useNode: function (id, title) {
+                    var context = button;
+                    context.next().val(id);
+                    context.next().next().text(title);
+                    this.$el.remove();
+                },
+                closeVue: function () {
+                    this.$el.remove();
+                },
+                searchNodes: function (event) {
+                    var input = $('#search-nodes');
+                    this.search = input.val();
+                    this.fetchNodes();
+                },
+                fetchNodes: function () {
+                    var search = '', that = this;
+                    if (this.search.length > 0) {
+                        search = this.search;
+                    }
+
+                    $.get( apiURI + search, {}, function (nodes) {
+                        that.nodes = nodes;
+                    }, 'json');
+                }
+            },
+            ready: function () {
+                this.fetchNodes();
+            }
+        });
+
+        // When an node is selected, run a callback.
+        return false;
+    }
 
 });
