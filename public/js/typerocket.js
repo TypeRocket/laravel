@@ -247,10 +247,10 @@ jQuery(document).ready(function ($) {
 
     // model search
     $(document).on('click', '.model-search-vue', function () {
-        init_model_search($(this), $(this).data('api'));
+        init_model_search($(this), $(this).data('api'), $(this).data('column'), $(this).data('id'));
     });
 
-    function init_model_search(button, apiURI) {
+    function init_model_search(button, apiURI, column, id) {
         if ($('#model-picker').length > 0) {
             return;
         }
@@ -261,8 +261,8 @@ jQuery(document).ready(function ($) {
             '<li><input placeholder="Type search" @keyup="searchNodes(this)" id="search-nodes" type="text"></li>' +
             '</ul>' +
             '<ul class="search-list">' +
-            '<li v-for="node in nodes" v-on:click="useNode(node.id, node.title)">' +
-            '<span>{{node.title}}</span>' +
+            '<li v-for="node in nodes" v-on:click="useNode(node.'+id+', node.'+column+')">' +
+            '<span>{{node.'+column+'}}</span>' +
             '</li>' +
             '</ul>' +
             '</div>');

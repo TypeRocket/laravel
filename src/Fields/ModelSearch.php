@@ -10,6 +10,8 @@ class ModelSearch extends Field
 {
     public $searchModel;
     public $searchAPI;
+    public $searchTitle = 'title';
+    public $searchId = 'id';
 
     /**
      * Run on construction
@@ -35,7 +37,9 @@ class ModelSearch extends Field
         $value = $this->getValue();
         $search->newElement('b', [
                 'class' => 'btn btn-default model-search-vue',
-                'data-api' => $this->searchAPI
+                'data-api' => $this->searchAPI,
+                'data-column' => $this->searchTitle,
+                'data-id' => $this->searchId,
             ], 'Get Content' );
         $input->newInput( 'hidden', $name, $value, $this->getAttributes() );
 
@@ -43,11 +47,11 @@ class ModelSearch extends Field
         $title_text = '';
 
         if($value) {
-            $node = $this->searchModel::where('id',$value)->first();
+            $node = $this->searchModel::where( $this->searchId ,$value)->first();
             $title_text = "Content was deleted";
 
             if(!empty($node)) {
-                $title_text = $node->title . ' (Currently Saved)';
+                $title_text = $node->{$this->searchTitle} . ' (Currently Saved)';
             }
         }
 
@@ -83,6 +87,27 @@ class ModelSearch extends Field
     public function setSearchAPI($url)
     {
         $this->searchAPI = $url;
+
+        return $this;
+    }
+
+    /**
+     * Set search title column
+     *
+     * @param $column
+     *
+     * @return $this
+     */
+    public function setSearchTitleColumn( $column )
+    {
+        $this->searchTitle = $column;
+
+        return $this;
+    }
+
+    public function setSearchIdColumn($id)
+    {
+        $this->searchId = $id;
 
         return $this;
     }
