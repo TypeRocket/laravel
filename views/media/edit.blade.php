@@ -35,6 +35,7 @@
                             <a target="_blank" href="{{ $form->getModel()->getFullSrc() }}">
                                 {{ $form->getModel()->alt }}
                             </a>
+                            <p>URL: {{ $form->getModel()->getFullSrc() }}</p>
                         @endif
                         <hr>
                         {!! $form->open(['enctype' => "multipart/form-data"]) !!}
