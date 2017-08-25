@@ -1,7 +1,7 @@
 <?php
 return [
     'vue' => true,
-    'form' => \CoverQuest\Form::class,
+    'form' => \TypeRocket\Form::class,
     'db_table' => 'tr_media',
     'view' => [
         'extends' => 'layouts.app',
