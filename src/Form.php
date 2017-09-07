@@ -4,7 +4,8 @@ namespace TypeRocket;
 use \TypeRocket\Html\Generator,
     \TypeRocket\Html\Tag,
     \TypeRocket\Fields\Field,
-    \Illuminate\Http\Request;
+    \Illuminate\Http\Request,
+    \Illuminate\Database\Eloquent\Model;
 
 class Form
 {
