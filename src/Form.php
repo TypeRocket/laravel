@@ -45,6 +45,11 @@ class Form
         $this->action = $action;
         $this->itemId = $itemId;
         $this->path = $path;
+	    
+	if( $model instanceof Model ) {
+            $this->model = $model;
+            return;
+        }
 
         if( ! class_exists($model) ) {
             $model = ucfirst($this->resource);
