@@ -108,7 +108,13 @@ class Getter {
      */
     protected function getBaseFieldValue( $field_name )
     {
-        $data = $this->field->getForm()->getModel()->{$field_name};
+        $model = $this->field->getForm()->getModel();
+        if( method_exists($model, 'getBaseFieldValue') ) {
+            $data = $model->getBaseFieldValue( $this, $field_name );
+        } else {
+            $data = $this->field->getForm()->getModel()->{$field_name};
+        }
+
         return $this->getValueOrNull($data);
     }
 
