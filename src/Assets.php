@@ -15,6 +15,16 @@ class Assets {
     {
         self::$footer[$id] = [$type, $path];
     }
+	
+    public static function removeFromFooter( $id )
+    {
+        unset(self::$footer[$id]);
+    }
+	
+    public static function removeFromHead( $id )
+    {
+        unset(self::$footer[$id]);
+    }
 
     protected static function buildTags($tags) {
 
