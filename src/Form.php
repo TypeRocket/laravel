@@ -733,6 +733,25 @@ class Form
     }
 
     /**
+     * Builder Input
+     *
+     * @param string $name
+     * @param array $attr
+     * @param array $settings
+     * @param bool|true $label
+     *
+     * @return Fields\Matrix
+     */
+    public function builder(
+        $name,
+        array $attr = array(),
+        array $settings = array(),
+        $label = true
+    ) {
+        return new Fields\Builder( $name, $attr, $settings, $label, $this );
+    }
+
+    /**
      * Repeater Input
      *
      * @param string $name

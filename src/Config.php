@@ -77,6 +77,7 @@ class Config
             'urls'    => [
                 'js'  => config('typerocket.urls.js'),
                 'css'  => config('typerocket.urls.css'),
+                'components'  => config('typerocket.urls.components'),
             ]
         ];
     }

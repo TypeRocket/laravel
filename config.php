@@ -12,6 +12,7 @@ return [
     'urls' => [
         'js' => env('TR_JS_URL', '/typerocket/js/'),
         'css' => env('TR_CSS_URL', '/typerocket/css/'),
+        'components' => env('TR_COMPONENT_URL', '/typerocket/components/'),
     ],
     'media' => [
         'middleware' => ['web', 'auth'],

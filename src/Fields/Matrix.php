@@ -9,8 +9,10 @@ use TypeRocket\Html\Generator,
 
 class Matrix extends Field implements OptionField, ScriptField {
 
-    private $mxid = null;
-    private $options = null;
+    protected $mxid = null;
+    protected $options = null;
+    protected $paths = null;
+    protected $componentFolder = null;
 
     /**
      * Run on construction
@@ -22,14 +24,14 @@ class Matrix extends Field implements OptionField, ScriptField {
     }
 
     public function enqueueScripts() {
-        $paths = Config::getPaths();
+        $paths = $this->paths = Config::getPaths();
         if( Config::useVueJs() ) {
             Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
         }
         Assets::addToFooter('js', 'typerocket-booyah', $paths['urls']['js'] . '/booyah.js');
         Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
         Assets::addToFooter('js', 'typerocket-matrix-core', $paths['urls']['js'] . '/matrix.js');
-        \TypeRocket\Assets::addToFooter('js', 'typerocket-items-list', $paths['urls']['js'] . '/items.js');
+        Assets::addToFooter('js', 'typerocket-items-list', $paths['urls']['js'] . '/items.js');
     }
 
     /**
@@ -41,7 +43,7 @@ class Matrix extends Field implements OptionField, ScriptField {
 
         // setup select list of files
         $select = $this->getSelectHtml();
-        $name = $this->getName();
+        $name = $folder = $this->getComponentFolder();
         $settings = $this->getSettings();
         $blocks = $this->getMatrixBlocks();
 
@@ -77,7 +79,7 @@ class Matrix extends Field implements OptionField, ScriptField {
         return $html;
     }
 
-    private function cleanFileName( $name )
+    protected function cleanFileName( $name )
     {
 
         $name = Sanitize::underscore($name);
@@ -86,7 +88,19 @@ class Matrix extends Field implements OptionField, ScriptField {
         return ucwords( $name );
     }
 
-    private function getSelectHtml()
+    /**
+     * Get component folder
+     *
+     * @return null|string
+     */
+    public function getComponentFolder() {
+        if( ! $this->componentFolder ) {
+            $this->componentFolder = $this->getName();
+        }
+        return $this->componentFolder;
+    }
+
+    protected function getSelectHtml()
     {
 
         $name = $this->getName();
@@ -157,7 +171,7 @@ class Matrix extends Field implements OptionField, ScriptField {
         return $this;
     }
 
-    private function getMatrixBlocks()
+    protected function getMatrixBlocks()
     {
 
         $val = $this->getValue();
