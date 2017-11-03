@@ -23,7 +23,8 @@ class Gallery extends Field implements ScriptField
 
 	public function enqueueScripts() {
 		$paths = Config::getPaths();
-		Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
+        $v = Config::getAssetVersion();
+		Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js?v='.$v);
 	}
 
 	/**

@@ -25,13 +25,14 @@ class Matrix extends Field implements OptionField, ScriptField {
 
     public function enqueueScripts() {
         $paths = $this->paths = Config::getPaths();
+        $v = Config::getAssetVersion();
         if( Config::useVueJs() ) {
-            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
+            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js?v='.$v);
         }
-        Assets::addToFooter('js', 'typerocket-booyah', $paths['urls']['js'] . '/booyah.js');
-        Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
-        Assets::addToFooter('js', 'typerocket-matrix-core', $paths['urls']['js'] . '/matrix.js');
-        Assets::addToFooter('js', 'typerocket-items-list', $paths['urls']['js'] . '/items.js');
+        Assets::addToFooter('js', 'typerocket-booyah', $paths['urls']['js'] . '/booyah.js?v='.$v);
+        Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js?v='.$v);
+        Assets::addToFooter('js', 'typerocket-matrix-core', $paths['urls']['js'] . '/matrix.js?v='.$v);
+        Assets::addToFooter('js', 'typerocket-items-list', $paths['urls']['js'] . '/items.js?v='.$v);
     }
 
     /**

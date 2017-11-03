@@ -86,7 +86,7 @@ jQuery(document).ready(function ($) {
                 },
                 filters: {
                     type: 'all',
-                    search: null
+                    search: ''
                 }
             },
             methods: {

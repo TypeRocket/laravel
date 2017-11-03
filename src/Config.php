@@ -31,6 +31,18 @@ class Config
     }
 
     /**
+     * Get asset version
+     *
+     * @return bool
+     */
+    static public function getAssetVersion()
+    {
+        self::$debug = config('typerocket.assets', 'v1.0.3');
+
+        return self::$debug;
+    }
+
+    /**
      * Get debug status
      *
      * @return bool

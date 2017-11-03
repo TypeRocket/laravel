@@ -21,7 +21,8 @@ class Repeater extends Field implements ScriptField
     public function enqueueScripts()
     {
         $paths = Config::getPaths();
-        Assets::addToFooter('js', 'typerocket-booyah', $paths['urls']['js'] . '/booyah.js');
+        $v = Config::getAssetVersion();
+        Assets::addToFooter('js', 'typerocket-booyah', $paths['urls']['js'] . '/booyah.js?v='.$v);
     }
 
     /**

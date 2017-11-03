@@ -11,7 +11,8 @@ class DropZone extends Field implements ScriptField
     public function enqueueScripts()
     {
         $paths = Config::getPaths();
-        Assets::addToFooter('js', 'typerocket-dropzone', $paths['urls']['js'] . '/dropzone.js');
+        $v = Config::getAssetVersion();
+        Assets::addToFooter('js', 'typerocket-dropzone', $paths['urls']['js'] . '/dropzone.js?v='.$v);
     }
 
     /**

@@ -22,11 +22,12 @@ class Media extends Field implements ScriptField
 
     public function enqueueScripts() {
         $paths = Config::getPaths();
+        $v = Config::getAssetVersion();
         if( Config::useVueJs() ) {
-            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
+            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js?v='.$v);
         }
 
-        Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js');
+        Assets::addToFooter('js', 'typerocket-image', $paths['urls']['js'] . '/image.js?v='.$v);
     }
 
     /**

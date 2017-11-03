@@ -22,8 +22,9 @@ class ModelSearch extends Field
 
     public function enqueueScripts() {
         $paths = Config::getPaths();
+        $v = Config::getAssetVersion();
         if( Config::useVueJs() ) {
-            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js');
+            Assets::addToFooter('js', 'typerocket-vue', $paths['urls']['js'] . '/vue.min.js?v='.$v);
         }
     }
 

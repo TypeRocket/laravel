@@ -115,6 +115,13 @@ class Getter {
             $data = $this->field->getForm()->getModel()->{$field_name};
         }
 
+        $camelField = camel_case($field_name);
+
+        if( method_exists($model, 'getFieldValue'.$camelField) ) {
+            $field_method = 'getFieldValue'.$camelField;
+            $data = $model->$field_method;
+        }
+
         return $this->getValueOrNull($data);
     }
 

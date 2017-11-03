@@ -16,8 +16,9 @@ class Editor extends Textarea implements ScriptField
 
     public function enqueueScripts() {
         $paths = Config::getPaths();
-	    \TypeRocket\Assets::addToFooter('js', 'typerocket-editor-image', $paths['urls']['js'] . '/redactor.min.js');
-	    \TypeRocket\Assets::addToFooter('js', 'typerocket-editor', $paths['urls']['js'] . '/editorImage.js');
+        $v = Config::getAssetVersion();
+	    \TypeRocket\Assets::addToFooter('js', 'typerocket-editor-image', $paths['urls']['js'] . '/redactor.min.js?v='.$v);
+	    \TypeRocket\Assets::addToFooter('js', 'typerocket-editor', $paths['urls']['js'] . '/editorImage.js?v='.$v);
     }
 
     /**
