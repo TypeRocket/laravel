@@ -30,6 +30,11 @@ class Getter {
         $keys = $this->geBracketKeys( $brackets );
         if(! empty($request) && ! empty($request->old($prefix)) ) {
             $old = $request->old($prefix);
+            
+            if(empty($old[$keys[0]])) {
+                return null;
+            }
+            
             $data = $old[$keys[0]];
 
             if(is_array($data)) {
