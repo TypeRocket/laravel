@@ -23,6 +23,7 @@ class TypeRocketMediaController extends BaseController
      * @var array
      */
     protected $processors;
+    protected $where_like = 'like';
 
     public function __construct()
     {
@@ -74,7 +75,7 @@ class TypeRocketMediaController extends BaseController
         }
 
         if ($filters['search']) {
-            $query = $query->where('caption', 'like', '%' . $filters['search'] . '%');
+            $query = $query->where('caption', $this->where_like, '%' . $filters['search'] . '%');
         }
 
         return $query->paginate(35);
