@@ -37,7 +37,7 @@ class Config
      */
     static public function getAssetVersion()
     {
-        self::$debug = config('typerocket.assets', 'v1.0.3');
+        self::$debug = config('typerocket.assets', 'v1.0.5');
 
         return self::$debug;
     }
