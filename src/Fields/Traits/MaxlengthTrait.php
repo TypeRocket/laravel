@@ -6,6 +6,9 @@ use TypeRocket\Html\Generator;
 
 trait MaxlengthTrait
 {
+    
+    public $hideMaxlength = false;
+    
     /**
      * Get the max length for text type fields
      *
@@ -16,7 +19,7 @@ trait MaxlengthTrait
      */
     public function getMaxlength( $value, $maxLength )
     {
-        if ( $maxLength != null && $maxLength > 0) {
+        if ( $maxLength != null && $maxLength > 0 && !$this->hideMaxlength) {
             $left = ( (int) $maxLength ) - mb_strlen( $value );
             $max = new Generator();
             $max->newElement('p', ['class' => 'tr-maxlength'], 'Characters left: ')->appendInside('span', [], $left);
@@ -25,5 +28,9 @@ trait MaxlengthTrait
             $max = '';
         }
         return $max;
+    }
+    
+    public function hideMaxlength() {
+        return $this->hideMaxlength;
     }
 }
