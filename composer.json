@@ -4,7 +4,7 @@
   "description": "Makes form building and model binding a breeze.",
   "keywords": ["typerocket", "forms", "fields"],
   "homepage": "https://github.com/TypeRocket/laravel",
-  "license" : "BSD",
+  "license": "GPL-3.0-or-later",
   "authors" : [
     {
       "name": "Kevin Dees",
