@@ -31,6 +31,8 @@ trait MaxlengthTrait
     }
     
     public function hideMaxlength() {
-        return $this->hideMaxlength;
+        $this->hideMaxlength = true;
+        
+        return $this;
     }
 }
