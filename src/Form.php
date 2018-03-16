@@ -416,6 +416,7 @@ class Form
 
         if ($label) {
             $label = $this->currentField->getSetting( 'label' );
+	    $label .= $this->currentField->getSetting( 'required' ) ? '*' : '';
             $html  = "{$open_html}{$label} {$close_html}";
         }
 
