@@ -24,7 +24,7 @@ abstract class Field
     private $brackets = null;
 
     private $label = false;
-    private $settings = array();
+    private $settings = [];
     private $populate = true;
 
     /**
@@ -657,6 +657,12 @@ abstract class Field
     public function getBrackets()
     {
         return "{$this->group}[{$this->name}]{$this->sub}";
+    }
+    
+    
+    public function setRequired($bool = true) {
+        $this->settings['required'] = $bool;
+        return $this;
     }
 
     /**
