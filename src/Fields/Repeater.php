@@ -9,6 +9,7 @@ class Repeater extends Field implements ScriptField
 {
 
     private $fields = array();
+    private $hideControls = true;
 
     /**
      * Run on construction
@@ -24,6 +25,15 @@ class Repeater extends Field implements ScriptField
         $v = Config::getAssetVersion();
         Assets::addToFooter('js', 'typerocket-booyah', $paths['urls']['js'] . '/booyah.js?v='.$v);
     }
+    
+    /**
+     * Remove Field Controls
+     */
+    public function hideControls()
+    {
+        $this->hideControls = false;
+        return $this;
+    }
 
     /**
      * Covert Repeater to HTML string
@@ -36,6 +46,7 @@ class Repeater extends Field implements ScriptField
         $name     = $this->getName();
         $form->setDebugStatus( false );
         $html     = '';
+        $hideControls  = $this->hideControls ? 'tr-hide-controls' : '';
 
         // add controls
         if (isset( $settings['help'] )) {
@@ -54,7 +65,7 @@ class Repeater extends Field implements ScriptField
 
         // template for repeater groups
         $href          = '#remove';
-        $openContainer = '<div class="repeater-controls"><div class="collapse glyphicon glyphicon-chevron-down"></div><div class="glyphicon glyphicon-menu-hamburger move"></div><a href="' . $href . '" class="glyphicon glyphicon-remove remove" title="remove"></a></div><div class="repeater-inputs">';
+        $openContainer = '<div class="repeater-controls '.$hideControls.'"><div class="collapse glyphicon glyphicon-chevron-down"></div><div class="glyphicon glyphicon-menu-hamburger move"></div><a href="' . $href . '" class="glyphicon glyphicon-remove remove" title="remove"></a></div><div class="repeater-inputs">';
         $endContainer  = '</div>';
 
         $html .= '<div class="control-section tr-repeater">'; // start tr-repeater
@@ -70,7 +81,7 @@ class Repeater extends Field implements ScriptField
         $generator    = new Generator();
         $default_null = $generator->newInput( 'hidden', $this->getAttribute( 'name' ), null )->getString();
 
-        $html .= "<div class=\"controls\"><div class=\"tr-repeater-button-add\"><input type=\"button\" value=\"{$add_button_value}\" class=\"btn btn-default add\" /></div><div class=\"btn-group\"><input type=\"button\" value=\"Flip\" class=\"flip btn btn-default\" /><input type=\"button\" value=\"Contract\" class=\"tr_action_collapse btn btn-default\"><input type=\"button\" value=\"Clear All\" class=\"clear btn btn-default\" /></div>{$help}<div>{$default_null}</div></div>";
+        $html .= "<div class=\"controls {$hideControls}\"><div class=\"tr-repeater-button-add\"><input type=\"button\" value=\"{$add_button_value}\" class=\"btn btn-default add\" /></div><div class=\"btn-group\"><input type=\"button\" value=\"Flip\" class=\"flip btn btn-default\" /><input type=\"button\" value=\"Contract\" class=\"tr_action_collapse btn btn-default\"><input type=\"button\" value=\"Clear All\" class=\"clear btn btn-default\" /></div>{$help}<div>{$default_null}</div></div>";
 
         // replace name attr with data-name so fields are not saved
         $templateFields = str_replace( ' name="', ' data-name="', $this->getTemplateFields() );
