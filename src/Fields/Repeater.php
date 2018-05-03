@@ -9,7 +9,7 @@ class Repeater extends Field implements ScriptField
 {
 
     private $fields = array();
-    private $hideControls = true;
+    private $hideControls = false;
 
     /**
      * Run on construction
@@ -31,7 +31,7 @@ class Repeater extends Field implements ScriptField
      */
     public function hideControls()
     {
-        $this->hideControls = false;
+        $this->hideControls = true;
         return $this;
     }
 
