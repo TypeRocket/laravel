@@ -51,8 +51,10 @@ class Media extends Field implements ScriptField
             if( $img instanceof MediaProvider && $img instanceof Model ) {
                 /** @var $img MediaProvider */
                 $img = $img->find($value);
-                $src = $img->getThumbSrc();
-                $image = "<img src=\"{$src}\" />";
+                if($img) {
+                    $src = $img->getThumbSrc();
+                    $image = "<img src=\"{$src}\" />";
+                }
             } else {
                 throw new \Exception('Media field requires an Eloquent Model implementing TypeRocket\MediaProvider');
             }
