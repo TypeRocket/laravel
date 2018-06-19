@@ -58,7 +58,7 @@
                                         <a href="{{ $item->getFullSrc() }}" target="_blank">
                                             <img width="50"
                                                  height="50"
-                                                 src="{{ $item->sizes['local']['thumb'] }}?w=150&h=150"
+                                                 src="{{ $item->getThumbSrc('?w=150&h=150') }}"
                                                  alt="{{$item->alt}}"
                                             >
                                         </a>
