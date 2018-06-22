@@ -46,6 +46,13 @@ class Checkbox extends Field
         return $field->getString();
     }
 
+    /**
+     * Set Text
+     *
+     * @param $text
+     *
+     * @return $this
+     */
     public function setText( $text )
     {
         $this->setSetting('text', $text);

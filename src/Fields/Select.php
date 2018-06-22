@@ -1,12 +1,13 @@
 <?php
 namespace TypeRocket\Fields;
 
+use TypeRocket\Fields\Traits\DefaultSetting;
 use \TypeRocket\Html\Generator;
-use TypeRocket\Sanitize;
+use TypeRocket\Fields\Traits\OptionTraits;
 
 class Select extends Field implements OptionField
 {
-    use OptionTraits;
+    use OptionTraits, DefaultSetting;
 
     protected $nullable = false;
 
@@ -24,7 +25,8 @@ class Select extends Field implements OptionField
     public function getString()
     {
         $default = $this->getSetting('default');
-        $this->setAttribute('name', $this->getNameAttributeString());
+        $multi = $this->getAttribute('multiple', null) ? '[]' : '';
+        $this->setAttribute('name', $this->getNameAttributeString() . $multi);
         $option = $this->getValue();
         $option = ! is_null($option) ? $option : $default;
         $generator  = new Generator();
@@ -35,29 +37,40 @@ class Select extends Field implements OptionField
                 $optgroup->newElement( 'optgroup', ['label' => $key] );
                 foreach($value as $k => $v) {
                     $attr['value'] = $v;
-                    if ( $option == $v && isset($option) ) {
-                        $attr['selected'] = 'selected';
-                    } elseif ( $option == $v && $this->nullable ) {
-                        $attr['selected'] = 'selected';
-                    } else {
-                        unset( $attr['selected'] );
-                    }
+                    $this->setSelected($option, $v, $attr);
                     $optgroup->appendInside( 'option', $attr, (string) $k );
                 }
                 $generator->appendInside( $optgroup );
             } else {
                 $attr['value'] = $value;
-                if ( $option == $value && isset($option) ) {
-                    $attr['selected'] = 'selected';
-                }  elseif ( $option == $value && $this->nullable ) {
-                    $attr['selected'] = 'selected';
-                } else {
-                    unset( $attr['selected'] );
-                }
+                $this->setSelected($option, $value, $attr);
                 $generator->appendInside( 'option', $attr, (string) $key );
             }
         }
         return $generator->getString();
+    }
+
+    /**
+     * Set Selected.
+     *
+     * @param $option
+     * @param $v
+     * @param $attr
+     *
+     * @return \TypeRocket\Fields\Select
+     */
+    protected function setSelected($option, $v, &$attr) {
+        if(is_array($option) && in_array($v, $option)) {
+            $attr['selected'] = 'selected';
+        } elseif ( !is_array($option) && $option == $v && isset($option) ) {
+            $attr['selected'] = 'selected';
+        } elseif ( !is_array($option) && $option == $v && $this->nullable ) {
+            $attr['selected'] = 'selected';
+        } else {
+            unset( $attr['selected'] );
+        }
+
+        return $this;
     }
 
     /**
@@ -68,6 +81,16 @@ class Select extends Field implements OptionField
     public function nullable() {
         $this->nullable = true;
         return $this;
+    }
+
+    /**
+     * Make select multiple
+     *
+     * @return $this
+     */
+    public function multiple()
+    {
+        return $this->setAttribute('multiple', 'multiple');
     }
 
 }

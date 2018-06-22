@@ -544,6 +544,19 @@ abstract class Field
     }
 
     /**
+     * Set Help
+     *
+     * @param $help
+     *
+     * @return $this
+     */
+    public function setHelp($help)
+    {
+        $this->setSetting('help', $help);
+        return $this;
+    }
+
+    /**
      * Label Text
      *
      * Set the label text to be used

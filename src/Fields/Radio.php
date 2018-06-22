@@ -1,12 +1,14 @@
 <?php
 namespace TypeRocket\Fields;
 
+use TypeRocket\Fields\Traits\DefaultSetting;
+use TypeRocket\Fields\Traits\OptionTraits;
 use \TypeRocket\Html;
 
 class Radio extends Field implements OptionField
 {
 
-    use OptionTraits;
+    use OptionTraits, DefaultSetting;
 
     /**
      * Run on construction
