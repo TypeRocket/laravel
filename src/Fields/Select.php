@@ -8,6 +8,8 @@ class Select extends Field implements OptionField
 {
     use OptionTraits;
 
+    protected $nullable = false;
+
     /**
      * Run on construction
      */
@@ -35,6 +37,8 @@ class Select extends Field implements OptionField
                     $attr['value'] = $v;
                     if ( $option == $v && isset($option) ) {
                         $attr['selected'] = 'selected';
+                    } elseif ( $option == $v && $this->nullable ) {
+                        $attr['selected'] = 'selected';
                     } else {
                         unset( $attr['selected'] );
                     }
@@ -45,6 +49,8 @@ class Select extends Field implements OptionField
                 $attr['value'] = $value;
                 if ( $option == $value && isset($option) ) {
                     $attr['selected'] = 'selected';
+                }  elseif ( $option == $value && $this->nullable ) {
+                    $attr['selected'] = 'selected';
                 } else {
                     unset( $attr['selected'] );
                 }
@@ -52,6 +58,16 @@ class Select extends Field implements OptionField
             }
         }
         return $generator->getString();
+    }
+
+    /**
+     * Allow null values
+     *
+     * @return $this
+     */
+    public function nullable() {
+        $this->nullable = true;
+        return $this;
     }
 
 }
