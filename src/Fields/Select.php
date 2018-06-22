@@ -90,7 +90,8 @@ class Select extends Field implements OptionField
      */
     public function multiple()
     {
-        return $this->setAttribute('multiple', 'multiple');
+        return $this->setAttribute('multiple', 'multiple')
+                    ->appendStringToAttribute('class', 'tr-multi-select');
     }
 
 }
