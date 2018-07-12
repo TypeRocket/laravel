@@ -1,6 +1,7 @@
 <?php
 namespace TypeRocket;
 
+use TypeRocket\Elements\FieldRow;
 use \TypeRocket\Html\Generator,
     \TypeRocket\Html\Tag,
     \TypeRocket\Fields\Field,
@@ -495,6 +496,16 @@ class Form
             if($field instanceof Field) {
                 $clone_field = clone $field;
                 $html .= (string) $clone_field->configureToForm($this);
+            }  elseif($field instanceof FieldRow) {
+                $row = clone $field;
+                foreach ($row->fields as $key => $row_field) {
+                    if($row_field instanceof Field) {
+                        $row_field = clone $row_field;
+                        $row_field->configureToForm($this);
+                        $row->fields[$key] = $row_field;
+                    }
+                }
+                $html .= (string) $row;
             } elseif(is_array($field) && count($field) > 1) {
                 $function   = array_shift( $field );
                 $parameters = array_pop( $field );
@@ -507,6 +518,22 @@ class Form
         }
 
         return $html;
+    }
+
+    /**
+     * Get fields as row
+     *
+     * Array of fields or args of fields
+     *
+     * @param array|Field $fields
+     *
+     * @return FieldRow
+     */
+    public function row( $fields ) {
+        if( ! is_array( $fields) ) {
+            $fields = func_get_args();
+        }
+        return new FieldRow( $fields );
     }
 
     /**
