@@ -51,6 +51,10 @@ class Assets {
 	    $paths = Config::getPaths();
 	    Assets::addToFooter('js', 'typerocket-core', $paths['urls']['js'] . '/typerocket.js');
 
+        if (config('typerocket.media.unsplash')) {
+            Assets::addToFooter('js', 'typerocket-unsplash', $paths['urls']['js'] . '/unsplash.js');
+        }
+
         return self::buildTags(self::$footer);
     }
 

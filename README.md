@@ -163,3 +163,7 @@ $paths = \TypeRocket\Config::getPaths();
 ## Media
 
 Typerocket Media uses https://github.com/eventviva/php-image-resize to create thumbnails.
+
+### [Unsplash](https://unsplash.com/developers)
+
+Add your Client ID in the .env file like so `UNSPLASH_CLIENT_ID=REPLACE_ME_WITH_A_REAL_KEY`

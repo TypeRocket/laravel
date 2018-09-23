@@ -23,7 +23,8 @@ return [
         'processors' => [
             \TypeRocket\MediaProcesses\Setup::class,
             \TypeRocket\MediaProcesses\LocalStorage::class
-        ]
+        ],
+        'unsplash' => false
     ],
     'matrix' => [
         'middleware' => ['web', 'auth'],

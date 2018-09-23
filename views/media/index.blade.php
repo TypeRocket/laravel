@@ -23,6 +23,11 @@
                             <a href="{!! route('media.create') !!}" class="btn btn-default">
                                 Upload Media
                             </a>
+                            @if(config('typerocket.media.unsplash'))
+                                <span id="tr-unsplash" data-client-id="{!! env('UNSPLASH_CLIENT_ID') !!}" data-upload-url="{!! route('media.index') !!}" data-csrf="{!! csrf_token() !!}">
+                                    <button type="button" class="btn btn-default">Search Unsplash</button>
+                                </span>
+                            @endif
                         </p>
                         <strong>Filter Media</strong>
                         <form class="form-inline">
