@@ -40,7 +40,7 @@ jQuery(document).ready(function ($) {
       '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
       '<span aria-hidden="true">&times;</span>' +
       '</button>' +
-      '<img src="/typerocket/img/ajax-loader.gif" v-show="isLoading" style="float: right; margin-right: 10px;" />' +
+      '<img src="/typerocket/images/ajax-loader.gif" v-show="isLoading" style="float: right; margin-right: 10px;" />' +
       '<h5 class="modal-title">Search Unsplash</h5>' +
       '</div>' +
       '<div class="modal-body">' +
