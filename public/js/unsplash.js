@@ -40,6 +40,7 @@ jQuery(document).ready(function ($) {
       '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
       '<span aria-hidden="true">&times;</span>' +
       '</button>' +
+      '<img src="/typerocket/img/ajax-loader.gif" v-show="isLoading" style="float: right; margin-right: 10px;" />' +
       '<h5 class="modal-title">Search Unsplash</h5>' +
       '</div>' +
       '<div class="modal-body">' +
@@ -76,7 +77,8 @@ jQuery(document).ready(function ($) {
           query: '',
           page: 1,
           results: [],
-          totalPages: 0
+          totalPages: 0,
+          isLoading: false
         };
       },
       mounted: function() {
@@ -91,6 +93,8 @@ jQuery(document).ready(function ($) {
         upload: function(result) {
           var _this = this;
           if (confirm('Are you sure you want to upload this image?')) {
+
+            this.isLoading = true;
 
             getImageAsBlob(result.urls.full, function(blob) {
               var matches = result.urls.full.match(/fm=([^&]*)/);
@@ -107,6 +111,7 @@ jQuery(document).ready(function ($) {
                 data: fd
               })
                 .done(function() {
+                  _this.isLoading = false;
                   location.reload();
                   // _this.reset();
                 });
@@ -132,6 +137,8 @@ jQuery(document).ready(function ($) {
         search: function() {
           if (this.query === '') return;
 
+          this.isLoading = true;
+
           var _this = this;
           $.ajax({
             url: apiUrl + 'page=' + _this.page + '&query=' + _this.query,
@@ -143,6 +150,7 @@ jQuery(document).ready(function ($) {
             .done(function(data) {
               _this.results = data.results;
               _this.totalPages = data.total_pages;
+              _this.isLoading = false;
             });
         }
       }

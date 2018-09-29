@@ -24,7 +24,10 @@ return [
             \TypeRocket\MediaProcesses\Setup::class,
             \TypeRocket\MediaProcesses\LocalStorage::class
         ],
-        'unsplash' => false
+        'unsplash' => [
+            'enabled' => false,
+            'client_id' => null
+        ]
     ],
     'matrix' => [
         'middleware' => ['web', 'auth'],

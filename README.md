@@ -166,4 +166,6 @@ Typerocket Media uses https://github.com/eventviva/php-image-resize to create th
 
 ### [Unsplash](https://unsplash.com/developers)
 
-Add your Client ID in the .env file like so `UNSPLASH_CLIENT_ID=REPLACE_ME_WITH_A_REAL_KEY`
+To enable, set the `typerocket.media.unsplash.enabled` to `true`, and set the the Unsplash client ID in `typerocket.media.unsplash.client_id`.
+
+To add the Unsplash button and modal anywhere, use the custom Blade directive `@tr_unsplash`.
