@@ -23,6 +23,7 @@
                             <a href="{!! route('media.create') !!}" class="btn btn-default">
                                 Upload Media
                             </a>
+                            @tr_unsplash
                         </p>
                         <strong>Filter Media</strong>
                         <form class="form-inline">

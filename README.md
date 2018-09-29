@@ -163,3 +163,9 @@ $paths = \TypeRocket\Config::getPaths();
 ## Media
 
 Typerocket Media uses https://github.com/eventviva/php-image-resize to create thumbnails.
+
+### [Unsplash](https://unsplash.com/developers)
+
+To enable, set the `typerocket.media.unsplash.enabled` to `true`, and set the the Unsplash client ID in `typerocket.media.unsplash.client_id`.
+
+To add the Unsplash button and modal anywhere, use the custom Blade directive `@tr_unsplash`.

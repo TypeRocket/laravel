@@ -8,6 +8,7 @@ use TypeRocket\TypeRocketMedia;
 use TypeRocket\Form;
 use TypeRocket\MediaProcesses\MediaProcess;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -110,6 +111,10 @@ class TypeRocketMediaController extends BaseController
                 $imageProcess->run($file, $media);
             }
             $media->save();
+        }
+
+        if ($request->ajax()) {
+            return response(null, Response::HTTP_CREATED);
         }
 
         return redirect()->route('media.index');

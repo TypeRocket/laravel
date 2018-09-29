@@ -2,6 +2,7 @@
 
 namespace TypeRocket;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class Service extends ServiceProvider
@@ -20,6 +21,10 @@ class Service extends ServiceProvider
         // Assets::addToFooter('js', 'typerocket-core', $paths['urls']['js'] . '/typerocket.js');
         Assets::addToHead('js', 'typerocket-global', $paths['urls']['js'] . '/global.js');
         Assets::addToHead('css', 'typerocket-core', $paths['urls']['css'] . '/typerocket.css');
+
+        if (config('typerocket.media.unsplash.enabled')) {
+            Assets::addToFooter('js', 'typerocket-unsplash', $paths['urls']['js'] . '/unsplash.js');
+        }
     }
 
     public function boot()
@@ -43,5 +48,20 @@ class Service extends ServiceProvider
         $this->publishes([
             __DIR__.'/../views' => resource_path('views/vendor/typerocket'),
         ], 'views');
+
+        Blade::directive('tr_unsplash', function ($expression) {
+            if (\config('typerocket.media.unsplash.enabled', false) === false) {
+                return '';
+            }
+
+            return sprintf(
+                '<span id="tr-unsplash" data-client-id="%s" data-upload-url="%s" data-csrf="%s">' .
+                '<button type="button" class="btn btn-default">Search Unsplash</button>' .
+                '</span>',
+                \config('typerocket.media.unsplash.client_id'),
+                route('media.index'),
+                '<?php echo csrf_token(); ?>'
+            );
+        });
     }
 }
