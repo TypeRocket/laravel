@@ -36,13 +36,13 @@ class Select extends Field implements OptionField
                 $optgroup  = new Generator();
                 $optgroup->newElement( 'optgroup', ['label' => $key] );
                 foreach($value as $k => $v) {
-                    $attr['value'] = $v;
+                    $attr['value'] = htmlentities($v);
                     $this->setSelected($option, $v, $attr);
                     $optgroup->appendInside( 'option', $attr, (string) $k );
                 }
                 $generator->appendInside( $optgroup );
             } else {
-                $attr['value'] = $value;
+                $attr['value'] = htmlentities($value);
                 $this->setSelected($option, $value, $attr);
                 $generator->appendInside( 'option', $attr, (string) $key );
             }
