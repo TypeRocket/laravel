@@ -2,6 +2,7 @@
 namespace TypeRocket\Fields;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use TypeRocket\Assets;
 use \TypeRocket\Html\Generator,
     \TypeRocket\Config;
@@ -53,7 +54,12 @@ class Media extends Field implements ScriptField
                 $img = $img->find($value);
                 if($img) {
                     $src = $img->getThumbSrc();
-                    $image = "<img src=\"{$src}\" />";
+                    if(!$img->isImage()) {
+                        $title = $img->getCaption();
+                        $image = "<div><p class=\"media-pdf-item fa fa-file-pdf-o\" aria-hidden=\"true\"></p>{$title}</div>";
+                    } else {
+                        $image = "<img src=\"{$src}\" />";
+                    }
                 }
             } else {
                 throw new \Exception('Media field requires an Eloquent Model implementing TypeRocket\MediaProvider');
