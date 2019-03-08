@@ -49,4 +49,9 @@ class TypeRocketMedia extends Model implements MediaProvider
 	public function isImage() {
 		return in_array(strtolower($this->ext), ['jpg', 'png', 'jpeg', 'gif']);
 	}
+
+    public function getCaption()
+    {
+        return $this->caption;
+	}
 }
