@@ -41,6 +41,7 @@ class Media extends Field implements ScriptField
         $value = $this->getValue();
         $this->removeAttribute( 'name' );
         $generator = new Generator();
+        $image = '';
 
         if ( ! $this->getSetting( 'button' )) {
             $this->setSetting( 'button', 'Insert Image' );
@@ -64,9 +65,6 @@ class Media extends Field implements ScriptField
             } else {
                 throw new \Exception('Media field requires an Eloquent Model implementing TypeRocket\MediaProvider');
             }
-
-        } else {
-            $image = '';
         }
 
         if (empty( $image )) {
