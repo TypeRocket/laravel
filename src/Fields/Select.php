@@ -1,6 +1,7 @@
 <?php
 namespace TypeRocket\Fields;
 
+use Illuminate\Support\Collection;
 use TypeRocket\Fields\Traits\DefaultSetting;
 use \TypeRocket\Html\Generator;
 use TypeRocket\Fields\Traits\OptionTraits;
@@ -31,6 +32,11 @@ class Select extends Field implements OptionField
         $option = ! is_null($option) ? $option : $default;
         $generator  = new Generator();
         $generator->newElement( 'select', $this->getAttributes() );
+
+        if($option instanceof Collection) {
+            $option = $option->pluck('id')->toArray();
+        }
+
         foreach ($this->options as $key => $value) {
             if( is_array($value) ) {
                 $optgroup  = new Generator();
