@@ -2,7 +2,7 @@
 
 namespace TypeRocket\MediaProcesses;
 
-use Eventviva\ImageResize;
+use Gumlet\ImageResize;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TypeRocket\MediaProvider;
 
@@ -50,6 +50,13 @@ class LocalStorage implements MediaProcess
         }
     }
 
+    /**
+     * @param $file
+     * @param MediaProvider $media
+     *
+     * @return string
+     * @throws \Gumlet\ImageResizeException
+     */
     protected function makeThumb( $file, MediaProvider $media ) {
         $name = 'thumb-' . $media->file;
         $new = $media->path . '/' . $name;
